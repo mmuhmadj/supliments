@@ -1,0 +1,1321 @@
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>متجر المكملات الغذائية | بروتين وفيتامينات ومكملات رياضية</title>
+<meta name="description" content="متجر للمكملات الغذائية والرياضية. اكتشف البروتين والكرياتين والفيتامينات واطلب بسهولة عبر واتساب.">
+<meta name="theme-color" content="#17251f">
+<meta property="og:title" content="متجر المكملات">
+<meta property="og:description" content="مكملات غذائية ورياضية - اطلب بسهولة عبر واتساب">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --navy:#17251f;
+  --navy2:#294638;
+  --red:#c69b52;
+  --ice:#edf3ee;
+  --bg:#f7f8f5;
+  --ink:#202a23;
+  --muted:#748077;
+  --white:#fff;
+  --line:#e3e9e2;
+  --green:#258454;
+  --shadow:0 12px 34px rgba(16,45,61,.09);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Cairo",Tahoma,sans-serif;
+  line-height:1.7;
+  padding-bottom:88px
+}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
+.container{width:min(1160px,calc(100% - 32px));margin:auto}
+
+.topline{background:var(--navy);color:#dceaf0;font-size:13px;padding:7px 0}
+.topline .container{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+header{background:var(--navy);color:white;overflow:hidden;position:relative}
+.nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:21px}
+.logo{
+  width:46px;height:46px;border-radius:15px;background:var(--red);
+  display:grid;place-items:center;font-size:25px;overflow:hidden;
+  box-shadow:0 8px 20px #0003;flex-shrink:0
+}
+.logo img{width:100%;height:100%;object-fit:contain;padding:4px}
+.navlinks{display:flex;align-items:center;gap:24px;color:#d7e5eb;font-size:14px}
+.navlinks a:hover{color:white}
+
+.nav-cta,.btn{
+  border:0;border-radius:12px;background:var(--red);color:white;
+  padding:11px 19px;font-weight:800;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  transition:.2s
+}
+.nav-cta:hover,.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+
+.hero{
+  padding:50px 0 65px;
+  background:
+    radial-gradient(circle at 10% 15%,var(--navy2) 0,transparent 32%),
+    radial-gradient(circle at 88% 85%,var(--navy2) 0,transparent 35%)
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:40px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;color:#d7e9ef;
+  background:#ffffff13;border:1px solid #ffffff25;
+  padding:6px 13px;border-radius:99px;font-size:13px
+}
+h1{font-size:clamp(34px,5vw,58px);line-height:1.25;margin:18px 0 12px;font-weight:900}
+.hero p{color:#d2e1e7;font-size:17px;max-width:560px;margin:0 0 25px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn-outline{background:transparent;border:1px solid #c8dce4;color:white}
+
+.hero-visual{
+  position:relative;min-height:330px;border-radius:28px;overflow:hidden;
+  background:linear-gradient(135deg,#dcebf0,#a9c8d2);
+  box-shadow:0 22px 55px #061a2555
+}
+.hero-visual img{width:100%;height:100%;min-height:330px;object-fit:cover;display:block}
+.hero-tag{
+  position:absolute;bottom:18px;right:18px;background:#fff;color:var(--navy);
+  padding:12px 17px;border-radius:15px;font-weight:800;box-shadow:var(--shadow)
+}
+
+.features{margin-top:-27px;position:relative;z-index:2}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.feature{
+  background:white;border:1px solid var(--line);border-radius:17px;
+  padding:17px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow)
+}
+.feature-icon{
+  width:44px;height:44px;border-radius:13px;background:var(--ice);
+  display:grid;place-items:center;font-size:22px
+}
+.feature b{display:block;font-size:14px}
+.feature small{color:var(--muted);font-size:12px}
+
+section{padding:54px 0}
+.section-head{text-align:center;margin-bottom:25px}
+.section-head span{color:var(--red);font-weight:800;font-size:13px}
+.section-head h2{font-size:30px;margin:4px 0;font-weight:900;color:var(--navy)}
+.section-head p{color:var(--muted);margin:0}
+
+.category-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 0 25px}
+.cat-btn{
+  border:1px solid var(--line);background:white;color:var(--navy);
+  padding:8px 19px;border-radius:99px;cursor:pointer;font-weight:700
+}
+.cat-btn.active,.cat-btn:hover{background:var(--navy);color:white;border-color:var(--navy)}
+
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}
+.product{
+  background:white;border:1px solid var(--line);border-radius:19px;overflow:hidden;
+  display:flex;flex-direction:column;box-shadow:0 5px 20px #102d3d08;transition:.2s
+}
+.product:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.product-img{height:175px;background:var(--ice);position:relative;overflow:hidden}
+.product-img img{width:100%;height:100%;object-fit:cover;display:block}
+.product-body{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.product-cat{font-size:11px;color:var(--muted)}
+.product h3{font-size:16px;margin:0;font-weight:800}
+.price{color:var(--green);font-size:18px;font-weight:900}
+.price small{font-size:12px;color:var(--muted);font-weight:500}
+.product-controls{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:9px;gap:8px}
+.qty{display:flex;align-items:center;gap:7px}
+.qty button{
+  width:31px;height:31px;border-radius:9px;border:1px solid var(--line);
+  background:#f7fafb;color:var(--navy);font-weight:900;cursor:pointer
+}
+.qty span{min-width:20px;text-align:center;font-weight:800}
+.add{border:0;border-radius:10px;background:var(--navy);color:white;padding:8px 12px;font-size:12px;font-weight:800;cursor:pointer}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:30px}
+
+.about{background:var(--ice)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center}
+.about-art{border-radius:23px;overflow:hidden;min-height:290px;background:#dcebf0}
+.about-art img{width:100%;height:100%;min-height:290px;object-fit:cover;display:block}
+.about h2{font-size:30px;color:var(--navy);margin:0 0 12px}
+.about p{color:var(--muted)}
+
+.contact-card{
+  background:white;border:1px solid var(--line);border-radius:20px;padding:23px;
+  display:grid;grid-template-columns:1fr 1fr;gap:16px
+}
+.contact-item{display:flex;gap:12px;align-items:flex-start;min-width:0}
+.contact-item i{
+  font-style:normal;width:40px;height:40px;flex-shrink:0;border-radius:12px;
+  background:var(--ice);display:grid;place-items:center
+}
+.contact-item b{display:block}
+.contact-item small{color:var(--muted)}
+.map-link{display:none;margin-top:10px;background:var(--navy);padding:7px 13px;font-size:12px}
+.map-link.visible{display:inline-flex}
+
+footer{background:var(--navy);color:#d5e4e9;padding:28px 0;text-align:center;font-size:13px}
+
+.cartbar{
+  position:fixed;bottom:0;right:0;left:0;background:var(--navy);color:white;
+  padding:12px 18px calc(12px + env(safe-area-inset-bottom));z-index:10;
+  display:none;box-shadow:0 -8px 30px #0002
+}
+.cartbar.show{display:block}
+.cart-inner{
+  width:min(1160px,100%);margin:auto;display:flex;align-items:center;
+  justify-content:space-between;gap:15px
+}
+.cart-total small{display:block;color:#c5d8df;font-size:11px}
+.cart-total b{font-size:17px}
+.checkout{background:#20a66b;border:0;border-radius:11px;color:white;padding:11px 18px;font-weight:900;cursor:pointer}
+
+@media(max-width:900px){
+  .products{grid-template-columns:repeat(3,1fr)}
+  .hero-grid{gap:24px}
+  .navlinks{gap:13px}
+}
+@media(max-width:650px){
+  .container{width:min(100% - 24px,560px)}
+  .topline .container{justify-content:center}
+  .nav{height:68px}
+  .brand{font-size:17px}
+  .navlinks{display:none}
+  .nav-cta{padding:9px 12px;font-size:12px}
+  .hero{padding:35px 0 50px}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-visual{min-height:220px}
+  .hero-visual img{min-height:220px}
+  .hero p{font-size:15px}
+  .feature-grid{grid-template-columns:1fr}
+  .feature{padding:12px}
+  .features{margin-top:-20px}
+  section{padding:40px 0}
+  .section-head h2{font-size:25px}
+  .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .product-img{height:130px}
+  .product-body{padding:10px}
+  .product h3{font-size:14px}
+  .price{font-size:16px}
+  .add{padding:7px 9px}
+  .about-grid{grid-template-columns:1fr}
+  .about-art,.about-art img{min-height:210px}
+  .contact-card{grid-template-columns:1fr}
+  .cart-inner{align-items:center}
+  .checkout{padding:10px 12px;font-size:12px}
+  .product-controls{flex-wrap:wrap}
+  .qty{gap:5px}
+  .qty-input{width:53px}
+}
+
+#checkoutModal[hidden]{display:none!important}
+#checkoutModal{
+  position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.65);
+  display:flex;align-items:center;justify-content:center;padding:15px;overflow-y:auto
+}
+.checkout-box{
+  background:white;width:100%;max-width:450px;padding:25px;
+  border-radius:20px;box-shadow:0 15px 50px #0004
+}
+.checkout-box h2{color:var(--navy);margin:0 0 18px;text-align:center}
+.checkout-box label{display:block;margin:12px 0 5px;font-weight:800;font-size:14px}
+.checkout-box input,.checkout-box select{
+  width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;
+  background:#f8fafb;outline:none;font-family:inherit
+}
+.checkout-box input:focus,.checkout-box select:focus{border-color:var(--green)}
+#deliveryFee,#finalTotal{font-weight:800;color:var(--navy);margin:12px 0}
+#finalTotal{color:var(--green);font-size:19px}
+#checkoutError{color:var(--red);font-size:13px}
+#confirmOrder,#closeCheckout{
+  width:100%;padding:12px;border:0;border-radius:10px;margin-top:10px;
+  font-family:inherit;font-weight:900;cursor:pointer
+}
+#confirmOrder{background:#20a66b;color:white}
+#closeCheckout{background:#edf1f3;color:var(--navy)}
+
+/* ألوان السعر والمخزون */
+.stock-info{
+  font-size:12px;font-weight:800;color:var(--green);
+  background:#eaf7f0;border-radius:8px;padding:5px 9px;width:fit-content;margin-top:3px
+}
+.stock-info.out{color:var(--red);background:#fff0ee}
+.product .price:has(~ .stock-info.out){color:var(--red)}
+.stock-message{color:var(--red);font-size:11px;font-weight:800;min-height:18px}
+.qty-input{
+  width:58px;height:32px;text-align:center;border:1px solid var(--line);
+  border-radius:8px;font-family:inherit;font-weight:800;color:var(--navy);
+  background:white;padding:2px
+}
+.qty button:disabled,.add:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.add:disabled{background:#89969c}
+</style>
+</head>
+
+<body>
+
+<div class="topline">
+  <div class="container">
+    <span>💪 مكملات مختارة بعناية</span>
+    <span>منتجات موثوقة • طلب سهل • توصيل لباب البيت</span>
+  </div>
+</div>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="#">
+      <span class="logo" id="shopLogo">💪</span>
+      <span id="brandName">متجر المكملات</span>
+    </a>
+
+    <nav class="navlinks">
+      <a href="#home">الرئيسية</a>
+      <a href="#products">المنتجات</a>
+      <a href="#about">عن المتجر</a>
+      <a href="#contact">تواصل معنا</a>
+    </nav>
+
+    <a class="nav-cta" id="topWhatsApp" href="#">اطلب على واتساب</a>
+  </div>
+
+  <div class="hero" id="home">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow" id="heroBadge">💪 أهلاً بيك في متجر المكملات</span>
+
+        <h1 id="heroTitle">ادعم هدفك<br>واختار مكملاتك بثقة</h1>
+
+        <p id="heroDescription">
+          اكتشف مجموعة من المكملات الرياضية والفيتامينات. اختار منتجاتك، أضفها للسلة، واطلب بسهولة عبر واتساب.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn" href="#products">
+            <span id="heroButtonText">تصفح المنتجات</span>
+            <span>←</span>
+          </a>
+          <a class="btn btn-outline" id="heroWhatsApp" href="#">كلمنا دلوقتي</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <img
+          id="heroImage"
+          src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=1200&q=85"
+          alt="مكملات غذائية ورياضية">
+        <div class="hero-tag">اختيارات تناسب أهدافك</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="features">
+  <div class="container feature-grid">
+    <div class="feature">
+      <span class="feature-icon" id="feature1Icon">💊</span>
+      <div><b id="feature1Title">اختيارات متنوعة</b><small id="feature1Description">منتجات من فئات وماركات مختلفة</small></div>
+    </div>
+    <div class="feature">
+      <span class="feature-icon" id="feature2Icon">🏋️</span>
+      <div><b id="feature2Title">اختار احتياجاتك بسهولة</b><small id="feature2Description">تصفح المنتجات وأضفها للسلة</small></div>
+    </div>
+    <div class="feature">
+      <span class="feature-icon" id="feature3Icon">📦</span>
+      <div><b id="feature3Title">توصيل لحد باب البيت</b><small id="feature3Description">اعرف مناطق ورسوم التوصيل قبل تأكيد الطلب</small></div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<section id="products">
+  <div class="container">
+    <div class="section-head">
+      <span>اختار اللي يناسب هدفك</span>
+      <h2>منتجاتنا</h2>
+      <p>تصفح الأقسام واكتشف المنتجات المتاحة</p>
+    </div>
+
+    <div class="category-row" id="categories"></div>
+    <div class="products" id="productGrid"></div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div class="about-art">
+      <img
+        id="aboutImage"
+        src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1000&q=85"
+        alt="عن المتجر">
+    </div>
+
+    <div>
+      <span
+        class="eyebrow"
+        id="aboutBadge"
+        style="background:#dcebf0;color:var(--navy2);border-color:#c8dce4">
+        عن متجر المكملات
+      </span>
+
+      <h2 id="aboutTitle">مكملاتك الغذائية والرياضية في مكان واحد</h2>
+
+      <p id="aboutDescription">
+        نوفر لك تجربة سهلة لاستكشاف المكملات الغذائية والرياضية. راجع تفاصيل كل منتج ومكوناته وتعليمات الاستخدام المدونة على العبوة، وتواصل معنا لو محتاج تستفسر عن التوفر أو الطلب.
+      </p>
+
+      <a class="btn" href="#contact">بيانات التواصل</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-head">
+      <span>إحنا في خدمتك</span>
+      <h2 id="contactTitle">تواصل معانا</h2>
+      <p id="contactDescription">كل طرق التواصل ومعلومات التوصيل في مكان واحد</p>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-item">
+        <i>📍</i>
+        <div>
+          <b>العنوان</b>
+          <small id="shopAddress"></small>
+          <a id="mapLink" class="btn map-link" href="#" target="_blank" rel="noopener noreferrer">
+            📍 افتح الموقع على الخريطة
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <i>🕒</i>
+        <div>
+          <b>مواعيد العمل</b>
+          <small id="shopHours"></small>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <i>📞</i>
+        <div>
+          <b>رقم الهاتف</b>
+          <small id="shopPhone"></small>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+            <a id="callShop" class="btn" href="tel:+201096507121"
+              style="background:var(--green);padding:7px 13px;font-size:12px">
+              📞 اتصال بالمحل
+            </a>
+
+            <a id="contactWhatsApp" class="btn"
+              href="https://wa.me/201096507121" target="_blank" rel="noopener"
+              style="padding:7px 13px;font-size:12px">
+              واتساب
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <i>📦</i>
+        <div style="width:100%">
+          <b>التوصيل</b>
+          <small id="shopDelivery"></small>
+
+          <details style="margin-top:10px">
+            <summary style="cursor:pointer;color:var(--green);font-weight:800">
+              📍 اعرف مناطق التوصيل والرسوم
+            </summary>
+            <div id="deliveryAreasList" style="margin-top:12px">
+              جاري تحميل المناطق...
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <span id="footerText">© جميع الحقوق محفوظة</span>
+    <span id="footerStoreName">متجر المكملات</span>
+    <span id="year"></span>
+  </div>
+</footer>
+
+<div id="checkoutModal" hidden>
+  <div class="checkout-box">
+    <h2>بيانات التوصيل</h2>
+
+    <label>اسم العميل</label>
+    <input id="customerName" type="text" placeholder="اكتب اسمك">
+
+    <label>رقم الهاتف</label>
+    <input id="customerPhone" type="tel" placeholder="01xxxxxxxxx">
+
+    <label>المحافظة</label>
+    <select id="governorate">
+      <option value="">اختر المحافظة</option>
+    </select>
+
+    <label>المنطقة</label>
+    <select id="deliveryArea" disabled>
+      <option value="">اختر المنطقة</option>
+    </select>
+
+    <p id="deliveryFee">رسوم التوصيل: 0 ج.م</p>
+    <p id="finalTotal">الإجمالي: 0 ج.م</p>
+    <p id="checkoutError"></p>
+
+    <button id="confirmOrder">تأكيد الطلب على واتساب</button>
+    <button id="closeCheckout">إلغاء</button>
+  </div>
+</div>
+
+<div class="cartbar" id="cartBar">
+  <div class="cart-inner">
+    <div class="cart-total">
+      <small id="cartCount">0 منتج</small>
+      <b id="cartTotal">0 ج.م</b>
+    </div>
+    <button class="checkout" id="checkout">إرسال الطلب على واتساب</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SHOP = {
+  name:"متجر المكملات",
+  phone:"201096507121",
+  phoneShow:"01096507121",
+  address:"المنوفيه اشمون",
+  hours:"يوميًا من 8 صباحًا إلى 12 مساءً",
+  delivery:"المنوفيه والشيخ زايد",
+  mapUrl:""
+};
+
+/* القيم الافتراضية للتخصيص */
+const DEFAULT_CUSTOMIZATION = {
+  primary_color:"#102d3d",
+  secondary_color:"#173f52",
+  accent_color:"#d94a3d",
+
+  hero_badge:"💪 أهلاً بيك في متجر المكملات",
+  hero_title:"ادعم هدفك<br>واختار مكملاتك بثقة",
+  hero_description:"اكتشف مجموعة من المكملات الرياضية والفيتامينات. اختار منتجاتك، أضفها للسلة، واطلب بسهولة عبر واتساب.",
+  hero_button_text:"تصفح المنتجات",
+
+  hero_image_url:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=1200&q=85",
+
+  about_title:"مكملاتك الغذائية والرياضية في مكان واحد",
+  about_description:"نوفر لك تجربة سهلة لاستكشاف المكملات الغذائية والرياضية. راجع تفاصيل كل منتج ومكوناته وتعليمات الاستخدام المدونة على العبوة، وتواصل معنا لو محتاج تستفسر عن التوفر أو الطلب.",
+  about_image_url:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1000&q=85",
+
+  contact_title:"تواصل معانا",
+  contact_description:"كل طرق التواصل ومعلومات التوصيل في مكان واحد",
+  footer_text:"جميع الحقوق محفوظة",
+
+  feature1_icon:"💊",
+  feature1_title:"اختيارات متنوعة",
+  feature1_description:"منتجات من فئات وماركات مختلفة",
+  feature2_icon:"🏋️",
+  feature2_title:"اختار احتياجاتك بسهولة",
+  feature2_description:"تصفح المنتجات وأضفها للسلة",
+  feature3_icon:"📦",
+  feature3_title:"توصيل لحد باب البيت",
+  feature3_description:"اعرف مناطق ورسوم التوصيل قبل تأكيد الطلب"
+};
+
+const SUPABASE_URL = "https://jnblppcgyeilxexymfie.supabase.co";
+const SUPABASE_KEY = "sb_publishable_4kSnPlSgqUyX6-j-pRv7Yw_B2GOTJL6";
+const db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const cart = {};
+let PRODUCTS = [];
+let DELIVERY_AREAS = [];
+let active = "الكل";
+
+const $ = s => document.querySelector(s);
+const money = n => Number(n).toLocaleString("en-US") + " ج.م";
+
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g,ch=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[ch]);
+}
+
+function getStock(product){
+  return Math.max(0,Number(product.stock) || 0);
+}
+
+function formatQty(value){
+  return Number(value).toLocaleString("en-US",{maximumFractionDigits:2});
+}
+
+function showStockMessage(id,message){
+  const el = document.querySelector(`[data-stock-message="${id}"]`);
+  if(el) el.textContent = message;
+}
+
+function waLink(message=""){
+  return "https://wa.me/" + SHOP.phone +
+    (message ? "?text=" + encodeURIComponent(message) : "");
+}
+
+/* التحقق من رابط الصورة */
+function safeImageUrl(url,fallback){
+  if(!url) return fallback;
+
+  try{
+    const parsed = new URL(url);
+    if(parsed.protocol === "https:" || parsed.protocol === "http:"){
+      return parsed.href;
+    }
+  }catch(error){}
+
+  return fallback;
+}
+
+/* تطبيق ألوان الهوية */
+function applyCustomizationColors(data){
+  const root = document.documentElement;
+
+  const primary = data.primary_color || DEFAULT_CUSTOMIZATION.primary_color;
+  const secondary = data.secondary_color || DEFAULT_CUSTOMIZATION.secondary_color;
+  const accent = data.accent_color || DEFAULT_CUSTOMIZATION.accent_color;
+
+  root.style.setProperty("--navy",primary);
+  root.style.setProperty("--navy2",secondary);
+  root.style.setProperty("--red",accent);
+
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+  if(themeColor) themeColor.content = primary;
+}
+
+/* تطبيق الشعار */
+function applyShopLogo(url){
+  const logo = $("#shopLogo");
+
+  if(url){
+    logo.innerHTML = `<img src="${escapeHTML(url)}" alt="شعار المحل" onerror="this.parentElement.textContent='💪'">`;
+  }else{
+    logo.textContent = "💪";
+  }
+}
+
+/* تطبيق نصوص وصور الواجهة */
+function applyCustomization(data){
+  const custom = {
+    ...DEFAULT_CUSTOMIZATION,
+    ...data
+  };
+
+  applyCustomizationColors(custom);
+
+  for(let i=1;i<=3;i++){
+    // نستخدم ?? بدل || حتى نسمح بمسح الإيموجي أو النص عمدًا.
+    $("#feature"+i+"Icon").textContent = custom["feature"+i+"_icon"] ?? DEFAULT_CUSTOMIZATION["feature"+i+"_icon"];
+    $("#feature"+i+"Title").textContent = custom["feature"+i+"_title"] ?? DEFAULT_CUSTOMIZATION["feature"+i+"_title"];
+    $("#feature"+i+"Description").textContent = custom["feature"+i+"_description"] ?? DEFAULT_CUSTOMIZATION["feature"+i+"_description"];
+  }
+
+  $("#heroBadge").textContent =
+    custom.hero_badge || DEFAULT_CUSTOMIZATION.hero_badge;
+
+  $("#heroTitle").innerHTML =
+    custom.hero_title || DEFAULT_CUSTOMIZATION.hero_title;
+
+  $("#heroDescription").textContent =
+    custom.hero_description || DEFAULT_CUSTOMIZATION.hero_description;
+
+  $("#heroButtonText").textContent =
+    custom.hero_button_text || DEFAULT_CUSTOMIZATION.hero_button_text;
+
+  $("#heroImage").src = safeImageUrl(
+    custom.hero_image_url,
+    DEFAULT_CUSTOMIZATION.hero_image_url
+  );
+
+  $("#aboutBadge").textContent =
+    "عن " + SHOP.name;
+
+  $("#aboutTitle").textContent =
+    custom.about_title || DEFAULT_CUSTOMIZATION.about_title;
+
+  $("#aboutDescription").textContent =
+    custom.about_description || DEFAULT_CUSTOMIZATION.about_description;
+
+  $("#aboutImage").src = safeImageUrl(
+    custom.about_image_url,
+    DEFAULT_CUSTOMIZATION.about_image_url
+  );
+
+  $("#contactTitle").textContent =
+    custom.contact_title || DEFAULT_CUSTOMIZATION.contact_title;
+
+  $("#contactDescription").textContent =
+    custom.contact_description || DEFAULT_CUSTOMIZATION.contact_description;
+
+  $("#footerText").textContent =
+    custom.footer_text || DEFAULT_CUSTOMIZATION.footer_text;
+
+  $("#footerStoreName").textContent = " - " + SHOP.name;
+}
+
+/* تحميل إعدادات المحل الأساسية وتخصيص الواجهة */
+async function loadShopSettings(){
+  let {data,error} = await db.from("shop_settings")
+    .select("*")
+    .eq("id",1)
+    .maybeSingle();
+
+  if(error){
+    console.error("Shop settings error:",error);
+    applyCustomization(DEFAULT_CUSTOMIZATION);
+    return;
+  }
+
+  if(!data){
+    applyCustomization(DEFAULT_CUSTOMIZATION);
+    return;
+  }
+
+  /* بيانات المحل الأساسية */
+  SHOP.name = data.store_name || SHOP.name;
+
+  if(data.whatsapp_phone){
+    SHOP.phone = data.whatsapp_phone.replace(/\D/g,"");
+
+    SHOP.phoneShow = SHOP.phone.startsWith("20")
+      ? "0" + SHOP.phone.substring(2)
+      : SHOP.phone;
+  }
+
+  SHOP.address = data.address || SHOP.address;
+  SHOP.hours = data.working_hours || SHOP.hours;
+  SHOP.delivery = data.delivery_description || SHOP.delivery;
+  SHOP.mapUrl = data.map_url || "";
+
+  /* اسم المحل */
+  document.title = SHOP.name + " | مكملات غذائية ورياضية";
+
+  document.querySelector('meta[property="og:title"]').content = SHOP.name;
+
+  document.querySelector('meta[property="og:description"]').content =
+    data.hero_description || "مكملات غذائية ورياضية - اطلب بسهولة عبر واتساب";
+
+  $("#brandName").textContent = SHOP.name;
+  $("#footerStoreName").textContent = " - " + SHOP.name;
+
+  /* بيانات التواصل */
+  $("#shopAddress").textContent = SHOP.address;
+  $("#shopHours").textContent = SHOP.hours;
+  $("#shopPhone").textContent = SHOP.phoneShow;
+  $("#shopDelivery").textContent = SHOP.delivery;
+
+  /* الخريطة */
+  const mapLink = $("#mapLink");
+
+  try{
+    const mapUrl = new URL(SHOP.mapUrl);
+
+    if(mapUrl.protocol === "https:" || mapUrl.protocol === "http:"){
+      mapLink.href = mapUrl.href;
+      mapLink.classList.add("visible");
+    }else{
+      mapLink.classList.remove("visible");
+    }
+  }catch{
+    mapLink.classList.remove("visible");
+  }
+
+  /* روابط التواصل */
+  $("#topWhatsApp").href = waLink();
+  $("#heroWhatsApp").href = waLink();
+  $("#callShop").href = "tel:+" + SHOP.phone;
+  $("#contactWhatsApp").href = waLink();
+
+  /* تخصيص واجهة المتجر: المحتوى المخصص محفوظ داخل site_content */
+  applyShopLogo(data.logo_url || "");
+  const savedContent = data.site_content && typeof data.site_content === "object"
+    ? data.site_content
+    : {};
+  applyCustomization(savedContent);
+}
+
+/* البيانات الافتراضية قبل اكتمال التحميل */
+$("#topWhatsApp").href = waLink();
+$("#heroWhatsApp").href = waLink();
+$("#callShop").href = "tel:+" + SHOP.phone;
+$("#contactWhatsApp").href = waLink();
+
+$("#shopAddress").textContent = SHOP.address;
+$("#shopHours").textContent = SHOP.hours;
+$("#shopPhone").textContent = SHOP.phoneShow;
+$("#shopDelivery").textContent = SHOP.delivery;
+
+$("#year").textContent = new Date().getFullYear();
+
+applyCustomization(DEFAULT_CUSTOMIZATION);
+
+/* تحميل المنتجات مع المخزون */
+async function loadProducts(){
+  $("#productGrid").innerHTML =
+    '<div class="empty">جاري تحميل المنتجات...</div>';
+
+  const {data,error} = await db.from("products")
+    .select("id,name,category,price,unit,image_url,is_active,stock")
+    .eq("is_active",true)
+    .order("id");
+
+  if(error){
+    console.error("Products error:",error);
+    $("#productGrid").innerHTML =
+      '<div class="empty">حصلت مشكلة في تحميل المنتجات. حاول مرة أخرى.</div>';
+    return;
+  }
+
+  PRODUCTS = data || [];
+
+  PRODUCTS.forEach(p=>{
+    const id = String(p.id);
+
+    if((cart[id] || 0) > getStock(p)){
+      cart[id] = getStock(p);
+    }
+  });
+
+  renderCategories();
+  renderProducts();
+  updateCart();
+}
+
+/* تحميل مناطق التوصيل */
+async function loadDeliveryAreas(){
+  const container = $("#deliveryAreasList");
+
+  if(container) container.textContent = "جاري تحميل المناطق...";
+
+  const {data,error} = await db.from("delivery_areas")
+    .select("id, governorate, area, delivery_fee")
+    .eq("is_active",true)
+    .order("governorate")
+    .order("area");
+
+  if(error){
+    console.error("Delivery areas error:",error);
+    if(container) container.textContent = "حصلت مشكلة في تحميل مناطق التوصيل.";
+    return;
+  }
+
+  DELIVERY_AREAS = data || [];
+
+  const governorates = [
+    ...new Set(DELIVERY_AREAS.map(item=>item.governorate))
+  ];
+
+  $("#governorate").innerHTML =
+    '<option value="">اختر المحافظة</option>' +
+    governorates.map(name=>`
+      <option value="${escapeHTML(name)}">${escapeHTML(name)}</option>
+    `).join("");
+
+  renderDeliveryAreasList();
+}
+
+/* عرض مناطق التوصيل */
+function renderDeliveryAreasList(){
+  const container = $("#deliveryAreasList");
+  if(!container) return;
+
+  if(!DELIVERY_AREAS.length){
+    container.innerHTML =
+      '<p style="color:var(--muted)">لا توجد مناطق توصيل متاحة حاليًا.</p>';
+    return;
+  }
+
+  const grouped = {};
+
+  DELIVERY_AREAS.forEach(item=>{
+    if(!grouped[item.governorate]) grouped[item.governorate] = [];
+    grouped[item.governorate].push(item);
+  });
+
+  container.innerHTML = Object.entries(grouped).map(([governorate,areas])=>`
+    <div style="margin-bottom:14px">
+      <b style="color:var(--navy)">${escapeHTML(governorate)}</b>
+
+      <div style="display:grid;gap:7px;margin-top:7px">
+        ${areas.map(item=>`
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 11px;background:var(--bg);border:1px solid var(--line);border-radius:10px">
+            <span>${escapeHTML(item.area)}</span>
+            <b style="color:var(--green);white-space:nowrap;font-size:13px">
+              ${money(item.delivery_fee)}
+            </b>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `).join("");
+}
+
+/* حساب إجمالي المنتجات */
+function getCartTotal(){
+  return Object.keys(cart).reduce((sum,id)=>{
+    const p = PRODUCTS.find(x=>String(x.id) === id);
+    return sum + (p ? cart[id] * Number(p.price) : 0);
+  },0);
+}
+
+/* تحديث رسوم التوصيل والإجمالي */
+function updateDeliverySummary(){
+  const areaId = $("#deliveryArea").value;
+
+  const selected = DELIVERY_AREAS.find(
+    item=>String(item.id) === areaId
+  );
+
+  const fee = selected ? Number(selected.delivery_fee) : 0;
+
+  $("#deliveryFee").textContent = "رسوم التوصيل: " + money(fee);
+
+  $("#finalTotal").textContent =
+    "الإجمالي شامل التوصيل: " + money(getCartTotal() + fee);
+}
+
+/* اختيار المحافظة */
+$("#governorate").addEventListener("change",()=>{
+  const governorate = $("#governorate").value;
+
+  const areas = DELIVERY_AREAS.filter(
+    item=>item.governorate === governorate
+  );
+
+  $("#deliveryArea").innerHTML =
+    '<option value="">اختر المنطقة</option>' +
+    areas.map(item=>`
+      <option value="${item.id}">${escapeHTML(item.area)}</option>
+    `).join("");
+
+  $("#deliveryArea").disabled = areas.length === 0;
+
+  updateDeliverySummary();
+});
+
+$("#deliveryArea").addEventListener("change",updateDeliverySummary);
+
+/* عرض الأقسام */
+function renderCategories(){
+  const cats = [
+    "الكل",
+    ...new Set(PRODUCTS.map(p=>p.category).filter(Boolean))
+  ];
+
+  $("#categories").innerHTML = cats.map(c=>`
+    <button class="cat-btn ${c === active ? "active" : ""}" data-cat="${escapeHTML(c)}">
+      ${escapeHTML(c)}
+    </button>
+  `).join("");
+}
+
+/* عرض المنتجات والمخزون */
+function renderProducts(){
+  const items = PRODUCTS.filter(
+    p=>active === "الكل" || p.category === active
+  );
+
+  $("#productGrid").innerHTML = items.map(p=>{
+    const id = String(p.id);
+    const stock = getStock(p);
+    const quantity = cart[id] || 0;
+    const unit = p.unit || "عبوة";
+    const outOfStock = stock <= 0;
+    const cannotIncrease = quantity + 1 > stock;
+
+    return `
+      <article class="product">
+        <div class="product-img">
+          ${p.image_url ? `
+            <img
+              src="${escapeHTML(p.image_url)}"
+              alt="${escapeHTML(p.name)}"
+              loading="lazy"
+              onerror="this.style.display='none'">
+          ` : ""}
+        </div>
+
+        <div class="product-body">
+          <span class="product-cat">${escapeHTML(p.category)}</span>
+          <h3>${escapeHTML(p.name)}</h3>
+
+          <div class="price">
+            ${money(p.price)}
+            <small>/ ${escapeHTML(unit)}</small>
+          </div>
+
+          <div class="stock-info ${outOfStock ? "out" : ""}">
+            ${outOfStock
+              ? "نفد المخزون"
+              : "المتاح: " + formatQty(stock) + " " + escapeHTML(unit)}
+          </div>
+
+          <div class="product-controls">
+            <div class="qty">
+              <button data-change="-1" data-id="${id}"
+                ${quantity <= 0 ? "disabled" : ""}>−</button>
+
+              <input
+                class="qty-input"
+                type="number"
+                min="0"
+                max="${stock}"
+                step="1"
+                inputmode="decimal"
+                value="${quantity}"
+                data-quantity="${id}"
+                aria-label="الكمية المطلوبة">
+
+              <button data-change="1" data-id="${id}"
+                ${outOfStock || cannotIncrease ? "disabled" : ""}>+</button>
+            </div>
+
+            <button class="add" data-add="${id}"
+              ${outOfStock || cannotIncrease ? "disabled" : ""}>
+              أضف للسلة
+            </button>
+          </div>
+
+          <small class="stock-message" data-stock-message="${id}"></small>
+        </div>
+      </article>
+    `;
+  }).join("") || '<div class="empty">لا توجد منتجات في هذا القسم</div>';
+}
+
+/* تحديث السلة */
+function updateCart(){
+  const ids = Object.keys(cart).filter(id=>cart[id] > 0);
+
+  const count = ids.reduce((sum,id)=>sum + cart[id],0);
+  const total = getCartTotal();
+
+  $("#cartBar").classList.toggle("show",ids.length > 0);
+  $("#cartCount").textContent = formatQty(count) + " وحدة / عبوة";
+  $("#cartTotal").textContent = "الإجمالي التقريبي: " + money(total);
+}
+
+/* الضغط على الأقسام */
+$("#categories").addEventListener("click",e=>{
+  const button = e.target.closest("[data-cat]");
+  if(!button) return;
+
+  active = button.dataset.cat;
+
+  renderCategories();
+  renderProducts();
+});
+
+/* التحكم في أزرار الكمية والإضافة */
+$("#productGrid").addEventListener("click",e=>{
+  const add = e.target.closest("[data-add]");
+  const change = e.target.closest("[data-change]");
+
+  if(add){
+    const id = add.dataset.add;
+    const product = PRODUCTS.find(p=>String(p.id) === id);
+
+    if(!product) return;
+
+    const next = (cart[id] || 0) + 1;
+
+    if(next > getStock(product)){
+      showStockMessage(
+        id,
+        "الكمية غير متاحة، المتاح حاليًا " +
+        formatQty(getStock(product)) + " " + (product.unit || "عبوة")
+      );
+      return;
+    }
+
+    cart[id] = next;
+
+    renderProducts();
+    updateCart();
+  }
+
+  if(change){
+    const id = change.dataset.id;
+    const product = PRODUCTS.find(p=>String(p.id) === id);
+
+    if(!product) return;
+
+    const next = Math.max(
+      0,
+      (cart[id] || 0) + Number(change.dataset.change)
+    );
+
+    if(next > getStock(product)){
+      showStockMessage(
+        id,
+        "الكمية غير متاحة، المتاح حاليًا " +
+        formatQty(getStock(product)) + " " + (product.unit || "عبوة")
+      );
+      return;
+    }
+
+    cart[id] = next;
+
+    renderProducts();
+    updateCart();
+  }
+});
+
+/* إدخال الكمية يدويًا */
+$("#productGrid").addEventListener("change",e=>{
+  const input = e.target.closest("[data-quantity]");
+  if(!input) return;
+
+  const id = input.dataset.quantity;
+  const product = PRODUCTS.find(p=>String(p.id) === id);
+
+  if(!product) return;
+
+  const entered = Number(input.value);
+  const stock = getStock(product);
+  const oldQuantity = cart[id] || 0;
+
+  if(!Number.isFinite(entered) || entered < 0){
+    showStockMessage(id,"من فضلك اكتب كمية صحيحة.");
+    input.value = oldQuantity;
+    return;
+  }
+
+  if(entered > stock){
+    showStockMessage(
+      id,
+      "الكمية غير متاحة، المتاح حاليًا " +
+      formatQty(stock) + " " + (product.unit || "عبوة")
+    );
+
+    input.value = oldQuantity;
+    return;
+  }
+
+  if(entered > 0 && !Number.isInteger(entered)){
+    showStockMessage(id,"الكمية تُحدد بعدد العبوات الكاملة.");
+    input.value = oldQuantity;
+    return;
+  }
+
+  cart[id] = Math.round(entered);
+
+  renderProducts();
+  updateCart();
+});
+
+/* فتح نافذة بيانات التوصيل */
+$("#checkout").addEventListener("click",()=>{
+  if(!Object.keys(cart).some(id=>cart[id] > 0)) return;
+
+  $("#checkoutError").textContent = "";
+  $("#customerName").value = "";
+  $("#customerPhone").value = "";
+  $("#governorate").value = "";
+
+  $("#deliveryArea").innerHTML =
+    '<option value="">اختر المنطقة</option>';
+
+  $("#deliveryArea").disabled = true;
+
+  updateDeliverySummary();
+
+  $("#checkoutModal").hidden = false;
+});
+
+/* إغلاق النافذة */
+$("#closeCheckout").addEventListener("click",()=>{
+  $("#checkoutModal").hidden = true;
+});
+
+/* تأكيد الطلب وحفظه في Supabase ثم إرساله إلى واتساب */
+$("#confirmOrder").addEventListener("click",async()=>{
+  const button = $("#confirmOrder");
+
+  const name = $("#customerName").value.trim();
+  const phone = $("#customerPhone").value.trim();
+  const governorate = $("#governorate").value;
+  const areaId = $("#deliveryArea").value;
+
+  const selectedArea = DELIVERY_AREAS.find(
+    item=>String(item.id) === areaId
+  );
+
+  if(!name || !phone || !governorate || !selectedArea){
+    $("#checkoutError").textContent =
+      "من فضلك املأ جميع البيانات واختر منطقة التوصيل";
+    return;
+  }
+
+  const ids = Object.keys(cart).filter(id=>cart[id] > 0);
+
+  if(!ids.length){
+    $("#checkoutError").textContent = "السلة فارغة";
+    return;
+  }
+
+  for(const id of ids){
+    const product = PRODUCTS.find(p=>String(p.id) === id);
+
+    if(!product){
+      $("#checkoutError").textContent =
+        "أحد المنتجات لم يعد متاحًا.";
+      return;
+    }
+
+    if(cart[id] > getStock(product)){
+      $("#checkoutError").textContent =
+        "الكمية المطلوبة من " + product.name +
+        " غير متاحة. المتاح حاليًا " +
+        formatQty(getStock(product)) + " " + (product.unit || "عبوة");
+
+      return;
+    }
+  }
+
+  const orderItems = ids.map(id=>{
+    const product = PRODUCTS.find(p=>String(p.id) === id);
+    if(!product) return null;
+
+    return {
+      product_id:product.id,
+      name:product.name,
+      quantity:cart[id],
+      unit:product.unit || "عبوة",
+      price:Number(product.price),
+      line_total:cart[id] * Number(product.price)
+    };
+  }).filter(Boolean);
+
+  const subtotal = getCartTotal();
+  const fee = Number(selectedArea.delivery_fee);
+  const finalTotal = subtotal + fee;
+
+  const lines = orderItems.map(item=>
+    `• ${item.name}: ${item.quantity} ${item.unit} = ${money(item.line_total)}`
+  ).join("\n");
+
+  const msg =
+`أهلاً، عايز أطلب من ${SHOP.name}:
+
+${lines}
+
+اسم العميل: ${name}
+رقم الهاتف: ${phone}
+المحافظة: ${governorate}
+المنطقة: ${selectedArea.area}
+
+إجمالي المنتجات: ${money(subtotal)}
+رسوم التوصيل: ${money(fee)}
+الإجمالي شامل التوصيل: ${money(finalTotal)}`;
+
+  $("#checkoutError").textContent = "";
+
+  button.disabled = true;
+  button.textContent = "جاري تسجيل الطلب...";
+
+  const whatsappWindow = window.open("about:blank","_blank");
+
+  try{
+    const {error} = await db.from("orders").insert({
+      customer_name:name,
+      phone:phone,
+      address:governorate + " - " + selectedArea.area,
+      customer_phone:phone,
+      governorate:governorate,
+      area:selectedArea.area,
+      items:orderItems,
+      subtotal:subtotal,
+      delivery_fee:fee,
+      total:finalTotal,
+      status:"new"
+    });
+
+    if(error) throw error;
+
+    const link = waLink(msg);
+
+    if(whatsappWindow){
+      whatsappWindow.location.href = link;
+    }else{
+      window.location.href = link;
+    }
+
+    $("#checkoutModal").hidden = true;
+
+    Object.keys(cart).forEach(id=>delete cart[id]);
+
+    await loadProducts();
+
+  }catch(error){
+    console.error("Order save error:",error);
+
+    if(whatsappWindow) whatsappWindow.close();
+
+    const errorText = String(error?.message || error?.details || "");
+
+    if(
+      errorText.includes("غير متاح") ||
+      errorText.includes("المخزون") ||
+      errorText.includes("الكمية المطلوبة")
+    ){
+      $("#checkoutError").textContent =
+        "عذرًا، الكمية المطلوبة غير متاحة حاليًا. حدّثنا المخزون، راجع الكمية وحاول مرة أخرى.";
+
+      await loadProducts();
+
+    }else{
+      $("#checkoutError").textContent =
+        "حصلت مشكلة في تسجيل الطلب. من فضلك حاول مرة تانية.";
+    }
+
+  }finally{
+    button.disabled = false;
+    button.textContent = "تأكيد الطلب على واتساب";
+  }
+});
+
+/* تشغيل المتجر والإعدادات */
+async function initStore(){
+  await loadShopSettings();
+
+  await Promise.all([
+    loadProducts(),
+    loadDeliveryAreas()
+  ]);
+}
+
+initStore();
+</script>
+</body>
+</html>
