@@ -1,150 +1,1241 @@
+
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>لوحة إدارة المتجر</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>متجر المكملات الغذائية | بروتين وفيتامينات ومكملات رياضية</title>
+<meta name="description" content="متجر للمكملات الغذائية والرياضية. اكتشف البروتين والكرياتين والفيتامينات واطلب بسهولة عبر واتساب.">
+<meta name="theme-color" content="#5b2038">
+<meta property="og:title" content="متجر المكملات">
+<meta property="og:description" content="مكملات غذائية ورياضية - اطلب بسهولة عبر واتساب">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
-:root{--green:#5b2038;--dark:#351321;--bg:#f1f5f9;--white:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0;--red:#dc2626}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.7 Tahoma,Arial,sans-serif}button,input,select,textarea{font:inherit}button{border:0;border-radius:9px;padding:10px 15px;background:var(--green);color:white;cursor:pointer;font-weight:bold}button:disabled{opacity:.5}button.secondary{background:#64748b}button.danger{background:var(--red)}button.light{background:#e2e8f0;color:#334155}input,select,textarea{width:100%;padding:11px;border:1px solid var(--border);border-radius:9px;margin:6px 0 13px;background:white;color:var(--text)}input[type=checkbox]{width:auto;margin-left:7px}label{font-weight:bold;font-size:14px}.container{max-width:1250px;margin:24px auto;padding:0 15px}header{background:linear-gradient(135deg,#351321,#5b2038);color:white;border-radius:16px;padding:22px;margin-bottom:18px}header h1{margin:0}header p{margin:4px 0 0;color:#eadbc1}.card{background:white;padding:20px;border:1px solid #edf0f3;border-radius:14px;margin-bottom:17px;box-shadow:0 5px 20px #0f172a0c}h2{margin:0 0 15px;color:var(--dark)}h3{margin:12px 0}.hidden{display:none!important}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.nav,.actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}.message{padding:10px 13px;border-radius:9px;margin:10px 0;background:#ecfdf5;color:#166534}.message.error{background:#fef2f2;color:#b91c1c}.muted{color:var(--muted);font-size:13px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}.row-info{min-width:0}.row p{margin:3px 0}.thumb{width:68px;height:68px;object-fit:cover;border-radius:9px}.row-left{display:flex;align-items:center;gap:12px}.badge{display:inline-block;padding:3px 9px;border-radius:20px;background:#f1f5f9;font-size:12px}.summary{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}.summary>div{background:#f8fafc;border:1px solid var(--border);border-radius:12px;text-align:center;padding:13px}.summary strong{display:block;font-size:21px;color:var(--dark)}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.tabs button{background:#e2e8f0;color:#334155}.tabs button.active{background:var(--green);color:white}.order{border:1px solid var(--border);border-radius:12px;margin:10px 0;overflow:hidden}.order-top{display:flex;justify-content:space-between;gap:12px;padding:14px}.details{padding:14px;background:#f8fafc;border-top:1px solid var(--border)}.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.info{background:white;border:1px solid var(--border);border-radius:8px;padding:9px;overflow-wrap:anywhere}.info b{display:block;color:var(--muted);font-size:12px}.items{width:100%;border-collapse:collapse;margin:12px 0;background:white}.items td,.items th{padding:8px;border-bottom:1px solid var(--border);text-align:right}.items th{background:#edf2f7}.pagination{display:flex;justify-content:center;align-items:center;gap:12px;margin:16px}.color-field{display:flex;gap:8px;align-items:center}.color-field input[type=color]{width:54px;height:44px;padding:3px;margin:4px 0 13px}.preview{width:100%;max-width:180px;max-height:100px;object-fit:contain;border:1px solid var(--border);border-radius:9px;margin:5px 0 12px}.check{display:flex;align-items:center;margin:8px 0 14px}.hint{font-size:12px;color:var(--muted);margin-top:-8px}
-@media(max-width:650px){.container{padding:0 9px;margin:12px auto}.card{padding:13px}.nav button{flex:1 1 42%;font-size:13px}.order-top{display:block}.order-top .actions{margin-top:10px}.info-grid{grid-template-columns:1fr}.row{align-items:flex-start}.row>.actions{flex-direction:column}.summary strong{font-size:17px}}
-</style></head>
-<body><div class="container">
-<header><h1>لوحة إدارة المتجر</h1><p>إدارة الطلبات والمنتجات والتوصيل وتخصيص شكل ومحتوى الموقع</p></header>
-<section id="login" class="card" style="max-width:480px;margin:45px auto"><h2>تسجيل دخول الأدمن</h2><label>البريد الإلكتروني</label><input id="email" type="email" autocomplete="username"><label>كلمة المرور</label><input id="password" type="password" autocomplete="current-password"><button id="loginBtn" style="width:100%">تسجيل الدخول</button><div id="loginMessage"></div></section>
-<main id="dashboard" class="hidden">
-<nav class="nav"><button onclick="showSection('orders')">📦 الطلبات</button><button onclick="showSection('products')">🛒 المنتجات</button><button onclick="showSection('delivery')">🚚 التوصيل</button><button onclick="showSection('settings')">🎨 تخصيص الموقع</button><button class="secondary" id="logoutBtn">تسجيل الخروج</button></nav>
+:root{
+  --wine:#5b2038;--wine-deep:#351321;--wine-soft:#8b5266;
+  --champagne:#c9aa78;--champagne-light:#eadbc1;
+  --warm:#fbf8f2;--paper:#fffdf9;--ink:#30242a;--muted:#897d7d;
+  --line:#e9e0d8;--green:#7a344b;--ice:#f3ece5;
+  --bg:var(--warm);--white:#fffdf9;--navy:var(--wine);--navy2:var(--wine-soft);--red:var(--champagne);
+  --shadow:0 18px 50px rgba(71,34,48,.09);
+  --shadow-strong:0 28px 70px rgba(53,19,33,.18);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--warm);color:var(--ink);font-family:"Cairo",Tahoma,sans-serif;line-height:1.8;padding-bottom:88px;overflow-x:hidden}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit}.container{width:min(1200px,calc(100% - 44px));margin:auto}
+.topline{background:var(--wine-deep);color:#f7eee8;font-size:12px;padding:8px 0;letter-spacing:.15px}.topline .container{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+header{background:var(--paper);color:var(--wine-deep);position:relative;overflow:visible;border-bottom:1px solid var(--line)}
+.nav{height:86px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:13px;font-weight:900;font-size:21px;letter-spacing:-.5px}.logo{width:48px;height:48px;border-radius:16px;background:linear-gradient(145deg,var(--champagne-light),var(--champagne));color:var(--wine);display:grid;place-items:center;font-size:25px;overflow:hidden;box-shadow:0 7px 20px #8b6b4530;flex-shrink:0}.logo img{width:100%;height:100%;object-fit:contain;padding:4px}.navlinks{display:flex;align-items:center;gap:27px;color:#705e63;font-size:13px;font-weight:700}.navlinks a{position:relative;padding:8px 0}.navlinks a:after{content:"";position:absolute;bottom:1px;right:0;width:0;height:2px;background:var(--champagne);transition:.25s}.navlinks a:hover{color:var(--wine)}.navlinks a:hover:after{width:100%}
+.nav-cta,.btn{border:1px solid var(--wine);border-radius:5px;background:var(--wine);color:#fffaf5;padding:12px 22px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:transform .25s,box-shadow .25s,background .25s}.nav-cta{font-size:13px}.nav-cta:hover,.btn:hover{background:var(--wine-deep);transform:translateY(-2px);box-shadow:0 10px 22px #5b20382b}
+.hero{padding:60px 0 84px;background:radial-gradient(ellipse at 12% 5%,#efe3d2 0,transparent 34%),linear-gradient(120deg,#fbf8f2 0%,#f7f0e7 52%,#fdfbf7 100%);position:relative;isolation:isolate}.hero:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#c8aa7828 .8px,transparent .8px);background-size:19px 19px;opacity:.45;z-index:-1}.hero-grid{display:grid;grid-template-columns:.92fr 1.08fr;align-items:center;gap:clamp(30px,6vw,88px)}.hero-grid>div:first-child{order:2;padding:12px 0 15px}.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--wine);background:#fffaf4;border:1px solid #e5d5bd;padding:7px 15px;border-radius:3px;font-size:12px;font-weight:800;letter-spacing:.3px}h1{font-size:clamp(36px,5vw,66px);line-height:1.28;margin:22px 0 15px;font-weight:900;color:var(--wine-deep);letter-spacing:-1.7px}h1:after{content:"";display:block;width:68px;height:4px;background:var(--champagne);margin-top:19px;border-radius:4px}.hero p{color:#776a6b;font-size:16px;max-width:520px;margin:0 0 28px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap}.btn-outline{background:transparent;border:1px solid #bda88e;color:var(--wine)}.btn-outline:hover{color:white;border-color:var(--wine)}
+.hero-visual{position:relative;min-height:440px;border-radius:8px 90px 8px 8px;overflow:visible;background:linear-gradient(145deg,#eee1d1,#d4bda0);box-shadow:var(--shadow-strong);transform-style:preserve-3d;transition:transform .18s ease-out;will-change:transform}.hero-visual:before{content:"";position:absolute;inset:18px -18px -18px 18px;border:1px solid var(--champagne);border-radius:8px 90px 8px 8px;z-index:-1}.hero-visual:after{content:"WELLNESS  /  PERFORMANCE";position:absolute;bottom:-42px;left:4px;color:#9b897b;font-size:9px;letter-spacing:3px;direction:ltr}.hero-visual img{width:100%;height:100%;min-height:440px;object-fit:cover;display:block;border-radius:8px 90px 8px 8px;filter:saturate(.82);transform:translateZ(24px)}.hero-tag{position:absolute;bottom:24px;right:-20px;background:var(--paper);color:var(--wine);padding:14px 20px;border-right:3px solid var(--champagne);font-weight:900;box-shadow:var(--shadow);font-size:13px;transform:translateZ(50px)}
+.features{margin-top:-1px;position:relative;z-index:2;background:var(--paper);border-bottom:1px solid var(--line)}.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0}.feature{background:transparent;border:0;border-left:1px solid var(--line);border-radius:0;padding:24px 22px;display:flex;align-items:center;gap:14px;box-shadow:none}.feature:last-child{border-left:0}.feature-icon{width:50px;height:50px;border-radius:50%;background:#f2e9dc;color:var(--wine);display:grid;place-items:center;font-size:22px;flex-shrink:0}.feature b{display:block;font-size:14px;color:var(--wine-deep)}.feature small{color:var(--muted);font-size:11px}
+section{padding:82px 0}.section-head{text-align:center;margin-bottom:35px}.section-head span{color:#a17d4f;font-weight:900;font-size:11px;letter-spacing:1.4px}.section-head h2{font-size:clamp(27px,3vw,38px);margin:5px 0;color:var(--wine-deep);font-weight:900}.section-head p{color:var(--muted);margin:0;font-size:14px}
+#products{background:var(--warm);position:relative}#products .section-head{position:relative}#products .section-head:after{content:"";display:block;width:42px;height:2px;background:var(--champagne);margin:17px auto 0}.category-row{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:0 0 31px}.cat-btn{border:1px solid #e4d9ce;background:transparent;color:#6f5960;padding:8px 20px;border-radius:3px;cursor:pointer;font-weight:800;font-size:12px;transition:.2s}.cat-btn.active,.cat-btn:hover{background:var(--wine);color:#fff;border-color:var(--wine)}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.product{background:var(--paper);border:1px solid #eee6de;border-radius:5px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 5px 22px #4b28300a;transition:transform .3s,box-shadow .3s,border-color .3s;transform-style:preserve-3d}.product:hover{transform:translateY(-7px);box-shadow:var(--shadow);border-color:#d9c4a6}.product-img{height:225px;background:linear-gradient(145deg,#f3ece3,#e8ddd0);position:relative;overflow:hidden;padding:15px}.product-img:after{content:"";position:absolute;inset:12px;border:1px solid #ffffff80;pointer-events:none}.product-img img{width:100%;height:100%;object-fit:contain;display:block;mix-blend-mode:multiply;transition:transform .35s}.product-img.image-error:before{content:"الصورة غير متاحة";height:100%;display:grid;place-items:center;color:#8b7880;font-size:12px;font-weight:700}.product:hover .product-img img{transform:scale(1.055)}.product-body{padding:16px;display:flex;flex-direction:column;gap:7px;flex:1}.product-cat{font-size:10px;color:#a17d4f;font-weight:800}.product h3{font-size:15px;margin:0;font-weight:900;color:var(--wine-deep);line-height:1.6}.price{color:var(--wine);font-size:18px;font-weight:900}.price small{font-size:11px;color:var(--muted);font-weight:500}.product-controls{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:12px;gap:8px}.qty{display:flex;align-items:center;gap:7px}.qty button{width:31px;height:31px;border-radius:3px;border:1px solid #e6dcd2;background:#fbf7f1;color:var(--wine);font-weight:900;cursor:pointer}.qty span{min-width:20px;text-align:center;font-weight:800}.add{border:0;border-radius:3px;background:var(--wine);color:white;padding:9px 13px;font-size:11px;font-weight:900;cursor:pointer;transition:.2s}.add:hover{background:var(--wine-deep)}.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:35px}
+.about{background:#f1e9df;position:relative;overflow:hidden}.about:before{content:"";position:absolute;width:330px;height:330px;border:1px solid #d5c3ac;border-radius:50%;left:-145px;top:-130px}.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(35px,6vw,80px);align-items:center}.about-art{border-radius:5px 75px 5px 5px;overflow:hidden;min-height:390px;background:#dfd0bd;box-shadow:var(--shadow);position:relative}.about-art:after{content:"";position:absolute;inset:14px;border:1px solid #ffffffa8;pointer-events:none}.about-art img{width:100%;height:100%;min-height:390px;object-fit:cover;display:block;filter:saturate(.8)}.about h2{font-size:clamp(27px,3vw,38px);line-height:1.45;color:var(--wine-deep);margin:18px 0 12px}.about p{color:#776a6b;font-size:14px;margin-bottom:25px}
+.contact-card{background:var(--paper);border:1px solid var(--line);border-radius:5px;padding:30px;display:grid;grid-template-columns:1fr 1fr;gap:25px 35px;box-shadow:var(--shadow)}.contact-item{display:flex;gap:14px;align-items:flex-start;min-width:0}.contact-item i{font-style:normal;width:46px;height:46px;flex-shrink:0;border-radius:50%;background:#f1e8dc;color:var(--wine);display:grid;place-items:center}.contact-item b{display:block;color:var(--wine-deep);font-size:14px}.contact-item small{color:var(--muted);font-size:12px}.map-link{display:none;margin-top:10px;background:var(--wine);padding:7px 13px;font-size:11px}.map-link.visible{display:inline-flex}
+footer{background:var(--wine-deep);color:#e8dcd5;padding:32px 0;text-align:center;font-size:12px;letter-spacing:.2px}
+footer .container{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.store-footer-line{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:20px}
+footer #footerStoreName{color:var(--champagne-light)}
+.developer-credit{display:flex;flex-direction:column;align-items:center;gap:5px;width:100%;padding-top:18px;border-top:1px solid #ffffff24}
+.developer-kicker{font-size:10px;letter-spacing:2px;color:#d7bda8;font-weight:800}
+.developer-credit strong{font-size:21px;color:#fff;letter-spacing:.3px}
+.developer-role{font-size:12px;color:#e2d2cb}
+.developer-copyright{font-size:10px;color:#c7b2b0;margin-top:3px}
+.cartbar{position:fixed;bottom:0;right:0;left:0;background:var(--wine-deep);color:white;padding:12px 20px calc(12px + env(safe-area-inset-bottom));z-index:10;display:none;box-shadow:0 -8px 30px #35132125;border-top:1px solid #9d7a5a}.cartbar.show{display:block}.cart-inner{width:min(1200px,100%);margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px}.cart-total small{display:block;color:#dfcbc9;font-size:11px}.cart-total b{font-size:17px}.checkout{background:var(--champagne);border:0;border-radius:3px;color:var(--wine-deep);padding:11px 20px;font-weight:900;cursor:pointer}
+#checkoutModal[hidden]{display:none!important}#checkoutModal{position:fixed;inset:0;z-index:1000;background:rgba(35,14,24,.72);display:flex;align-items:center;justify-content:center;padding:15px;overflow-y:auto}.checkout-box{background:var(--paper);width:100%;max-width:460px;padding:27px;border-radius:5px;border-top:4px solid var(--champagne);box-shadow:0 15px 50px #0004}.checkout-box h2{color:var(--wine);margin:0 0 18px;text-align:center}.checkout-box label{display:block;margin:12px 0 5px;font-weight:800;font-size:13px;color:var(--wine)}.checkout-box input,.checkout-box select{width:100%;padding:12px;border:1px solid var(--line);border-radius:3px;background:#fcf9f5;outline:none;font-family:inherit}.checkout-box input:focus,.checkout-box select:focus{border-color:var(--champagne)}#deliveryFee,#finalTotal{font-weight:800;color:var(--wine);margin:12px 0}#finalTotal{color:var(--wine-deep);font-size:19px}#checkoutError{color:#a3334d;font-size:13px}#confirmOrder,#closeCheckout{width:100%;padding:12px;border:0;border-radius:3px;margin-top:10px;font-family:inherit;font-weight:900;cursor:pointer}#confirmOrder{background:var(--wine);color:white}#closeCheckout{background:#eee6de;color:var(--wine)}
+.stock-info{font-size:11px;font-weight:800;color:#6f634f;background:#f3eee6;border-radius:3px;padding:5px 9px;width:fit-content;margin-top:3px}.stock-info.out{color:#a3334d;background:#f8e9eb}.product .price:has(~ .stock-info.out){color:#a3334d}.stock-message{color:#a3334d;font-size:11px;font-weight:800;min-height:18px}.qty-input{width:58px;height:32px;text-align:center;border:1px solid #e6dcd2;border-radius:3px;font-family:inherit;font-weight:800;color:var(--wine);background:white;padding:2px}.qty button:disabled,.add:disabled{opacity:.35;cursor:not-allowed;transform:none}.add:disabled{background:#9a8d8d}
+@media(max-width:950px){.products{grid-template-columns:repeat(3,1fr)}.hero-grid{gap:35px}.hero-visual,.hero-visual img{min-height:370px}.navlinks{gap:15px}}
+@media(max-width:680px){.container{width:min(100% - 26px,560px)}.topline .container{justify-content:center;text-align:center}.nav{height:70px}.brand{font-size:16px}.logo{width:41px;height:41px}.navlinks{display:none}.nav-cta{padding:9px 12px;font-size:11px}.hero{padding:35px 0 65px}.hero-grid{grid-template-columns:1fr;gap:32px}.hero-grid>div:first-child{order:1;padding:0}.hero-visual{order:2;min-height:260px;margin:0 8px 12px 0;border-radius:5px 55px 5px 5px}.hero-visual img{min-height:260px;border-radius:5px 55px 5px 5px}.hero-visual:before{inset:12px -12px -12px 12px;border-radius:5px 55px 5px 5px}.hero-tag{right:-10px;bottom:15px;padding:10px 13px;font-size:11px}h1{font-size:36px;margin:16px 0 12px}.hero p{font-size:14px}.feature-grid{grid-template-columns:1fr}.feature{border-left:0;border-bottom:1px solid var(--line);padding:13px 8px}.feature:last-child{border-bottom:0}.feature-icon{width:42px;height:42px}section{padding:53px 0}.section-head{margin-bottom:25px}.section-head h2{font-size:26px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.product-img{height:150px;padding:9px}.product-body{padding:10px}.product h3{font-size:13px}.price{font-size:16px}.add{padding:8px 9px}.about-grid{grid-template-columns:1fr;gap:27px}.about-art,.about-art img{min-height:235px}.about h2{font-size:27px}.contact-card{grid-template-columns:1fr;padding:20px;gap:20px}.cart-inner{align-items:center}.checkout{padding:10px 12px;font-size:11px}.product-controls{flex-wrap:wrap}.qty{gap:5px}.qty-input{width:53px}footer .container{flex-direction:column;gap:2px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
 
-<section id="orders" class="card"><h2>📦 إدارة الطلبات</h2><p class="muted">الإجمالي المالي يحسب الطلبات المؤكدة فقط.</p><div class="summary"><div><strong id="summaryCount">-</strong><span>إجمالي الطلبات</span></div><div><strong id="summaryTotal">-</strong><span>إجمالي المؤكد</span></div></div><div class="grid"><input id="orderSearch" placeholder="ابحث بالاسم أو الهاتف أو رقم الطلب"><button id="refreshOrders" class="secondary">تحديث الطلبات</button></div><div class="tabs"><button class="active" data-tab="new">الطلبات الجديدة</button><button data-tab="all">كل الطلبات</button></div><div id="ordersMessage"></div><div id="ordersCount" class="muted"></div><div id="ordersList">جاري التحميل...</div><div class="pagination"><button id="prevOrders" class="secondary">السابق</button><span id="ordersPageInfo"></span><button id="nextOrders" class="secondary">التالي</button></div></section>
+.product-details-modal[hidden]{display:none!important}
+.product-details-modal{position:fixed;inset:0;z-index:1200;background:rgba(35,14,24,.76);display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.product-details-box{width:min(560px,100%);max-height:90vh;overflow:auto;background:var(--paper);border:1px solid var(--champagne);border-radius:6px;box-shadow:var(--shadow-strong);position:relative;padding:22px}
+.product-details-close{position:absolute;top:12px;left:12px;width:38px;height:38px;border:1px solid var(--line);border-radius:3px;background:var(--warm);color:var(--wine);font-size:24px;cursor:pointer;z-index:1}
+.product-details-image{width:100%;height:250px;object-fit:contain;background:var(--warm);display:block;margin-bottom:16px;padding:12px}
+.product-details-category{color:#a17d4f;font-size:12px;font-weight:800}
+.product-details-box h2{margin:5px 0 8px;color:var(--wine-deep);font-size:23px}
+.product-details-price{font-size:20px;font-weight:900;color:var(--wine);margin:8px 0}
+.product-details-description{color:var(--ink);line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere;background:#f7f1e9;border:1px solid var(--line);padding:14px;margin:12px 0;font-size:14px}
+.product-details-description.empty{color:var(--muted);font-size:13px}
+.product-details-add{width:100%;border:0;border-radius:3px;background:var(--wine);color:#fff;padding:12px;font-family:inherit;font-weight:900;cursor:pointer}
+.product-details-add:disabled{opacity:.45;cursor:not-allowed}
+.product-clickable{cursor:pointer}
+.product-clickable:focus-visible{outline:2px solid var(--champagne);outline-offset:3px}
+@media(max-width:550px){.product-details-box{padding:14px}.product-details-image{height:205px}.product-details-box h2{font-size:20px}}
 
-<section id="products" class="card hidden"><h2>🛒 إدارة المنتجات</h2><form id="productForm"><input type="hidden" id="productId"><div class="grid"><div><label>اسم المنتج</label><input id="name" required></div><div><label>القسم</label><input id="category" required></div><div><label>السعر</label><input id="price" type="number" min="0" step=".01" required></div><div><label>الوحدة</label><input id="unit" value="كجم"></div><div><label>المخزون</label><input id="stock" type="number" min="0" step=".01" value="0" required><p class="hint">يسمح بالكسور مثل 0.5 و1.25</p></div></div><label>صورة المنتج</label><input id="image" type="file" accept="image/jpeg,image/png,image/webp,image/gif"><img id="productImagePreview" class="preview" alt="معاينة صورة المنتج" style="display:none"><p class="hint">الصيغ المدعومة: JPG وPNG وWEBP وGIF — الحد الأقصى 8 ميجابايت.</p><label>الوصف</label><textarea id="description" rows="3"></textarea><label class="check"><input id="active" type="checkbox" checked> المنتج نشط ويظهر في المتجر</label><div class="actions"><button id="saveProduct" type="submit">حفظ المنتج</button><button type="button" class="secondary" id="cancelProduct">إلغاء التعديل</button></div><div id="productMessage"></div></form><hr><h3>المنتجات الحالية</h3><div id="productsList">جاري التحميل...</div></section>
+</style>
+</head>
 
-<section id="delivery" class="card hidden"><h2>🚚 المحافظات ومناطق التوصيل</h2><form id="deliveryForm"><input type="hidden" id="deliveryId"><div class="grid"><div><label>المحافظة</label><input id="governorate" required></div><div><label>المنطقة</label><input id="area" required></div><div><label>رسوم التوصيل</label><input id="fee" type="number" min="0" step=".01" required></div></div><label class="check"><input id="deliveryActive" type="checkbox" checked> المنطقة متاحة للطلب</label><div class="actions"><button id="saveDelivery" type="submit">إضافة المنطقة</button><button type="button" class="secondary" id="cancelDelivery">إلغاء</button></div><div id="deliveryMessage"></div></form><hr><input id="deliverySearch" placeholder="ابحث عن محافظة أو منطقة"><div id="deliveryList">جاري التحميل...</div></section>
+<body>
 
-<section id="settings" class="card hidden"><h2>🎨 تخصيص هوية ومحتوى الموقع</h2><p class="muted">غيّر الألوان والنصوص والصور من هنا. التغييرات تظهر للزوار بعد الحفظ وتحديث الصفحة.</p>
-<h3>بيانات المحل والتواصل</h3><div class="grid"><div><label>اسم المحل</label><input id="storeName"></div><div><label>رقم واتساب (بصيغة دولية أو محلية)</label><input id="whatsappPhone"></div><div><label>عنوان المحل</label><input id="shopAddress"></div><div><label>رابط الخريطة</label><input id="mapUrl" type="url"></div><div><label>مواعيد العمل</label><input id="workingHours"></div></div><label>وصف التوصيل</label><textarea id="deliveryDescription" rows="2"></textarea>
-<hr><h3>ألوان الموقع</h3><div class="grid"><div><label>اللون الأساسي (الهيدر والعناوين)</label><div class="color-field"><input type="color" id="primaryPicker" value="#5b2038"><input id="primaryColor" value="#5b2038" placeholder="#5b2038"></div></div><div><label>اللون الثانوي (الأزرار والعناصر)</label><div class="color-field"><input type="color" id="secondaryPicker" value="#8b5266"><input id="secondaryColor" value="#8b5266" placeholder="#8b5266"></div></div><div><label>لون التمييز (الأزرار والتنبيهات)</label><div class="color-field"><input type="color" id="accentPicker" value="#c9aa78"><input id="accentColor" value="#c9aa78" placeholder="#c9aa78"></div></div></div>
-<hr><h3>الشعار وصور الموقع</h3><div class="grid"><div><label>رابط الشعار (اختياري)</label><input id="logoUrl" placeholder="رابط صورة الشعار"><label>رفع شعار جديد</label><input id="logoFile" type="file" accept="image/*"><img id="logoPreview" class="preview" alt=""></div><div><label>صورة القسم الرئيسي</label><input id="heroImageUrl" placeholder="رابط الصورة"><label>رفع صورة رئيسية</label><input id="heroImageFile" type="file" accept="image/*"><img id="heroPreview" class="preview" alt=""></div><div><label>صورة عن المحل</label><input id="aboutImageUrl" placeholder="رابط الصورة"><label>رفع صورة عن المحل</label><input id="aboutImageFile" type="file" accept="image/*"><img id="aboutPreview" class="preview" alt=""></div></div>
-<hr><h3>محتوى القسم الرئيسي</h3><div class="grid"><div><label>عنوان القسم الرئيسي</label><input id="heroTitle"></div><div><label>الشارة الصغيرة فوق العنوان</label><input id="heroBadge"></div><div><label>النص الظاهر فوق الصورة الرئيسية</label><input id="heroTag" placeholder="اختيارات تناسب أهدافك"></div><div><label>نص زر القسم الرئيسي</label><input id="heroButtonText"></div></div><label>وصف القسم الرئيسي</label><textarea id="heroDescription" rows="3"></textarea>
-<hr><h3>مميزات المتجر (البطاقات الثلاثة)</h3><p class="muted">تقدر تغيّر الأيقونة والعنوان والوصف لكل بطاقة، والتعديلات هتظهر في الصفحة الرئيسية بعد الحفظ.</p><div class="grid"><div><h3>الميزة الأولى</h3><label>الأيقونة (إيموجي)</label><input id="feature1Icon" placeholder="💊"><label>العنوان</label><input id="feature1Title"><label>الوصف</label><textarea id="feature1Description" rows="2"></textarea></div><div><h3>الميزة الثانية</h3><label>الأيقونة (إيموجي)</label><input id="feature2Icon" placeholder="🏋️"><label>العنوان</label><input id="feature2Title"><label>الوصف</label><textarea id="feature2Description" rows="2"></textarea></div><div><h3>الميزة الثالثة</h3><label>الأيقونة (إيموجي)</label><input id="feature3Icon" placeholder="📦"><label>العنوان</label><input id="feature3Title"><label>الوصف</label><textarea id="feature3Description" rows="2"></textarea></div></div>
-<hr><h3>قسم عن المحل</h3><label>عنوان القسم</label><input id="aboutTitle"><label>وصف القسم</label><textarea id="aboutDescription" rows="3"></textarea>
-<hr><h3>قسم التواصل والتذييل</h3><div class="grid"><div><label>عنوان قسم التواصل</label><input id="contactTitle"></div><div><label>وصف قسم التواصل</label><input id="contactDescription"></div></div>
-<button id="saveSettings" style="margin-top:12px">💾 حفظ كل إعدادات الموقع</button><div id="settingsMessage"></div></section>
-</main></div>
+<div class="topline">
+  <div class="container">
+    <span>💪 مكملات مختارة بعناية</span>
+    <span>منتجات موثوقة • طلب سهل • توصيل لباب البيت</span>
+  </div>
+</div>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="#">
+      <span class="logo" id="shopLogo">💪</span>
+      <span id="brandName">متجر المكملات</span>
+    </a>
+
+    <nav class="navlinks">
+      <a href="#home">الرئيسية</a>
+      <a href="#products">المنتجات</a>
+      <a href="#about">عن المتجر</a>
+      <a href="#contact">تواصل معنا</a>
+    </nav>
+
+    <a class="nav-cta" id="topWhatsApp" href="#">اطلب على واتساب</a>
+  </div>
+
+  <div class="hero" id="home">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow" id="heroBadge">💪 أهلاً بيك في متجر المكملات</span>
+
+        <h1 id="heroTitle">ادعم هدفك<br>واختار مكملاتك بثقة</h1>
+
+        <p id="heroDescription">
+          اكتشف مجموعة من المكملات الرياضية والفيتامينات. اختار منتجاتك، أضفها للسلة، واطلب بسهولة عبر واتساب.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn" href="#products">
+            <span id="heroButtonText">تصفح المنتجات</span>
+            <span>←</span>
+          </a>
+          <a class="btn btn-outline" id="heroWhatsApp" href="#">كلمنا دلوقتي</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <img
+          id="heroImage"
+          src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=1200&q=85"
+          alt="مكملات غذائية ورياضية">
+        <div class="hero-tag">اختيارات تناسب أهدافك</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="features">
+  <div class="container feature-grid">
+    <div class="feature">
+      <span class="feature-icon" id="feature1Icon">💊</span>
+      <div><b id="feature1Title">اختيارات متنوعة</b><small id="feature1Description">منتجات من فئات وماركات مختلفة</small></div>
+    </div>
+    <div class="feature">
+      <span class="feature-icon" id="feature2Icon">🏋️</span>
+      <div><b id="feature2Title">اختار احتياجاتك بسهولة</b><small id="feature2Description">تصفح المنتجات وأضفها للسلة</small></div>
+    </div>
+    <div class="feature">
+      <span class="feature-icon" id="feature3Icon">📦</span>
+      <div><b id="feature3Title">توصيل لحد باب البيت</b><small id="feature3Description">اعرف مناطق ورسوم التوصيل قبل تأكيد الطلب</small></div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<section id="products">
+  <div class="container">
+    <div class="section-head">
+      <span>اختار اللي يناسب هدفك</span>
+      <h2>منتجاتنا</h2>
+      <p>تصفح الأقسام واكتشف المنتجات المتاحة</p>
+    </div>
+
+    <div class="category-row" id="categories"></div>
+    <div class="products" id="productGrid"></div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div class="about-art">
+      <img
+        id="aboutImage"
+        src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1000&q=85"
+        alt="عن المتجر">
+    </div>
+
+    <div>
+      <span
+        class="eyebrow"
+        id="aboutBadge"
+        style="background:#f1e6d7;color:var(--wine);border-color:#ddc7a8">
+        عن متجر المكملات
+      </span>
+
+      <h2 id="aboutTitle">مكملاتك الغذائية والرياضية في مكان واحد</h2>
+
+      <p id="aboutDescription">
+        نوفر لك تجربة سهلة لاستكشاف المكملات الغذائية والرياضية. راجع تفاصيل كل منتج ومكوناته وتعليمات الاستخدام المدونة على العبوة، وتواصل معنا لو محتاج تستفسر عن التوفر أو الطلب.
+      </p>
+
+      <a class="btn" href="#contact">بيانات التواصل</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-head">
+      <span>إحنا في خدمتك</span>
+      <h2 id="contactTitle">تواصل معانا</h2>
+      <p id="contactDescription">كل طرق التواصل ومعلومات التوصيل في مكان واحد</p>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-item">
+        <i>📍</i>
+        <div>
+          <b>العنوان</b>
+          <small id="shopAddress"></small>
+          <a id="mapLink" class="btn map-link" href="#" target="_blank" rel="noopener noreferrer">
+            📍 افتح الموقع على الخريطة
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <i>🕒</i>
+        <div>
+          <b>مواعيد العمل</b>
+          <small id="shopHours"></small>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <i>📞</i>
+        <div>
+          <b>رقم الهاتف</b>
+          <small id="shopPhone"></small>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+            <a id="callShop" class="btn" href="tel:+201096507121"
+              style="background:var(--green);padding:7px 13px;font-size:12px">
+              📞 اتصال بالمحل
+            </a>
+
+            <a id="contactWhatsApp" class="btn"
+              href="https://wa.me/201096507121" target="_blank" rel="noopener"
+              style="padding:7px 13px;font-size:12px">
+              واتساب
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <i>📦</i>
+        <div style="width:100%">
+          <b>التوصيل</b>
+          <small id="shopDelivery"></small>
+
+          <details style="margin-top:10px">
+            <summary style="cursor:pointer;color:var(--green);font-weight:800">
+              📍 اعرف مناطق التوصيل والرسوم
+            </summary>
+            <div id="deliveryAreasList" style="margin-top:12px">
+              جاري تحميل المناطق...
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="store-footer-line">
+      <span id="footerText">جميع الحقوق محفوظة</span>
+      <span id="footerStoreName">متجر المكملات</span>
+      <span id="year"></span>
+    </div>
+    <div class="developer-credit">
+      <span class="developer-kicker" id="developerKicker">ENGINEERED &amp; DEVELOPED BY</span>
+      <strong id="developerName">Mohamed Ahmed</strong>
+      <span class="developer-role" id="developerRole">Software Engineer | Web Developer</span>
+      <span class="developer-copyright" id="developerCopyright">© 2026 All Rights Reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<div id="productDetailsModal" class="product-details-modal" hidden aria-hidden="true">
+  <div class="product-details-box" role="dialog" aria-modal="true" aria-labelledby="detailsProductName">
+    <button type="button" class="product-details-close" id="closeProductDetails" aria-label="إغلاق">×</button>
+    <img id="detailsProductImage" class="product-details-image" alt="">
+    <span id="detailsProductCategory" class="product-details-category"></span>
+    <h2 id="detailsProductName"></h2>
+    <div id="detailsProductPrice" class="product-details-price"></div>
+    <div id="detailsProductDescription" class="product-details-description"></div>
+    <button type="button" id="detailsAddToCart" class="product-details-add">أضف للسلة</button>
+  </div>
+</div>
+
+<div id="checkoutModal" hidden>
+  <div class="checkout-box">
+    <h2>بيانات التوصيل</h2>
+
+    <label>اسم العميل</label>
+    <input id="customerName" type="text" placeholder="اكتب اسمك">
+
+    <label>رقم الهاتف</label>
+    <input id="customerPhone" type="tel" placeholder="01xxxxxxxxx">
+
+    <label>المحافظة</label>
+    <select id="governorate">
+      <option value="">اختر المحافظة</option>
+    </select>
+
+    <label>المنطقة</label>
+    <select id="deliveryArea" disabled>
+      <option value="">اختر المنطقة</option>
+    </select>
+
+    <p id="deliveryFee">رسوم التوصيل: 0 ج.م</p>
+    <p id="finalTotal">الإجمالي: 0 ج.م</p>
+    <p id="checkoutError"></p>
+
+    <button id="confirmOrder">تأكيد الطلب على واتساب</button>
+    <button id="closeCheckout">إلغاء</button>
+  </div>
+</div>
+
+<div class="cartbar" id="cartBar">
+  <div class="cart-inner">
+    <div class="cart-total">
+      <small id="cartCount">0 منتج</small>
+      <b id="cartTotal">0 ج.م</b>
+    </div>
+    <button class="checkout" id="checkout">إرسال الطلب على واتساب</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
-const SUPABASE_URL="https://jnblppcgyeilxexymfie.supabase.co";
-const SUPABASE_KEY="sb_publishable_4kSnPlSgqUyX6-j-pRv7Yw_B2GOTJL6";
-const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-const $=id=>document.getElementById(id);
-let tab="new",page=1,expanded=new Set(),timer=null,settingsCache={};
-const perPage=20;
-function msg(id,text,error=false){$(id).textContent=text;$(id).className=error?"message error":"message"}
-function clear(id){$(id).textContent="";$(id).className=""}
-function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function money(v){return Number(v||0).toLocaleString("ar-EG",{maximumFractionDigits:2})+" جنيه"}
-function showSection(id){["orders","products","delivery","settings"].forEach(x=>$(x).classList.toggle("hidden",x!==id));if(id==="orders")loadOrders();if(id==="products")loadProducts();if(id==="delivery")loadDelivery();if(id==="settings")loadSettings()}
-$("loginBtn").onclick=login;
-async function login(){let email=$("email").value.trim(),password=$("password").value;if(!email||!password)return msg("loginMessage","اكتب البريد وكلمة المرور.",true);$("loginBtn").disabled=true;try{let {error}=await db.auth.signInWithPassword({email,password});if(error)throw error;await checkAdmin()}catch(e){msg("loginMessage","فشل تسجيل الدخول: "+e.message,true)}finally{$("loginBtn").disabled=false}}
-async function checkAdmin(){try{let {data:{user},error}=await db.auth.getUser();if(error)throw error;if(!user)return;let r=await db.rpc("is_admin");if(r.error)throw r.error;if(r.data!==true){msg("loginMessage","الحساب ليس لديه صلاحية الأدمن.",true);await db.auth.signOut();return} $("login").classList.add("hidden");$("dashboard").classList.remove("hidden");loadOrders();loadProducts();loadDelivery();loadSettings()}catch(e){msg("loginMessage",e.message,true)}}
-$("logoutBtn").onclick=async()=>{await db.auth.signOut();location.reload()};
-async function upload(file){
-if(!file)return null;
-if(!file.type || !file.type.startsWith("image/"))throw new Error("الملف المختار مش صورة صالحة.");
-if(file.size>8*1024*1024)throw new Error("حجم الصورة أكبر من 8 ميجابايت. اختار صورة أصغر.");
-const allowed={"image/jpeg":"jpg","image/png":"png","image/webp":"webp","image/gif":"gif"};
-const ext=allowed[file.type];
-if(!ext)throw new Error("صيغة الصورة غير مدعومة. استخدم JPG أو PNG أو WEBP أو GIF.");
-const path=Date.now()+"-"+Math.random().toString(36).slice(2)+"."+ext;
-const bucket=db.storage.from("product-images");
-const {data,error}=await bucket.upload(path,file,{upsert:false,contentType:file.type,cacheControl:"3600"});
-if(error){
-  const detail=error.message||String(error);
-  if(/row-level security|permission|not authorized|403/i.test(detail))throw new Error("Supabase رفض رفع الصورة. راجع Storage Policies للـ bucket product-images وتأكد إن المستخدم الأدمن مسموح له INSERT.");
-  if(/bucket not found/i.test(detail))throw new Error("مش لاقي Bucket باسم product-images في Supabase.");
-  throw new Error("فشل رفع الصورة: "+detail);
+const SHOP = {
+  name:"متجر المكملات",
+  phone:"201096507121",
+  phoneShow:"01096507121",
+  address:"المنوفيه اشمون",
+  hours:"يوميًا من 8 صباحًا إلى 12 مساءً",
+  delivery:"المنوفيه والشيخ زايد",
+  mapUrl:""
+};
+
+/* القيم الافتراضية للتخصيص */
+const DEFAULT_CUSTOMIZATION = {
+  primary_color:"#5b2038",
+  secondary_color:"#8b5266",
+  accent_color:"#c9aa78",
+
+  hero_badge:"💪 أهلاً بيك في متجر المكملات",
+  hero_title:"ادعم هدفك<br>واختار مكملاتك بثقة",
+  hero_description:"اكتشف مجموعة من المكملات الرياضية والفيتامينات. اختار منتجاتك، أضفها للسلة، واطلب بسهولة عبر واتساب.",
+  hero_button_text:"تصفح المنتجات",
+
+  hero_image_url:"https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=1200&q=85",
+
+  about_title:"مكملاتك الغذائية والرياضية في مكان واحد",
+  about_description:"نوفر لك تجربة سهلة لاستكشاف المكملات الغذائية والرياضية. راجع تفاصيل كل منتج ومكوناته وتعليمات الاستخدام المدونة على العبوة، وتواصل معنا لو محتاج تستفسر عن التوفر أو الطلب.",
+  about_image_url:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1000&q=85",
+
+  contact_title:"تواصل معانا",
+  contact_description:"كل طرق التواصل ومعلومات التوصيل في مكان واحد",
+  products_eyebrow:"اختار اللي يناسب هدفك",
+  products_title:"منتجاتنا",
+  products_description:"تصفح الأقسام واكتشف المنتجات المتاحة",
+  about_badge:"عن المتجر",
+  about_button_text:"بيانات التواصل",
+  footer_text:"جميع الحقوق محفوظة",
+  developer_kicker:"ENGINEERED & DEVELOPED BY",
+  developer_name:"Mohamed Ahmed",
+  developer_role:"Software Engineer | Web Developer",
+  developer_copyright:"© 2026 All Rights Reserved.",
+
+  feature1_icon:"💊",
+  feature1_title:"اختيارات متنوعة",
+  feature1_description:"منتجات من فئات وماركات مختلفة",
+  feature2_icon:"🏋️",
+  feature2_title:"اختار احتياجاتك بسهولة",
+  feature2_description:"تصفح المنتجات وأضفها للسلة",
+  feature3_icon:"📦",
+  feature3_title:"توصيل لحد باب البيت",
+  feature3_description:"اعرف مناطق ورسوم التوصيل قبل تأكيد الطلب"
+};
+
+const SUPABASE_URL = "https://jnblppcgyeilxexymfie.supabase.co";
+const SUPABASE_KEY = "sb_publishable_4kSnPlSgqUyX6-j-pRv7Yw_B2GOTJL6";
+const db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const cart = {};
+let PRODUCTS = [];
+let DELIVERY_AREAS = [];
+let active = "الكل";
+
+const $ = s => document.querySelector(s);
+const money = n => Number(n).toLocaleString("en-US") + " ج.م";
+
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g,ch=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[ch]);
 }
-const {data:{publicUrl}}=bucket.getPublicUrl(path);
-if(!publicUrl)throw new Error("الصورة اترفعت لكن Supabase لم يرجّع رابطًا عامًا.");
-return publicUrl;
+
+function getStock(product){
+  return Math.max(0,Number(product.stock) || 0);
 }
-const basicFields={storeName:"store_name",whatsappPhone:"whatsapp_phone",shopAddress:"address",mapUrl:"map_url",workingHours:"working_hours",deliveryDescription:"delivery_description"};
-const contentFields={logoUrl:"logo_url",primaryColor:"primary_color",secondaryColor:"secondary_color",accentColor:"accent_color",heroTitle:"hero_title",heroDescription:"hero_description",heroImageUrl:"hero_image_url",heroBadge:"hero_badge",heroButtonText:"hero_button_text",heroTag:"hero_tag",aboutTitle:"about_title",aboutDescription:"about_description",aboutImageUrl:"about_image_url",contactTitle:"contact_title",contactDescription:"contact_description",feature1Icon:"feature1_icon",feature1Title:"feature1_title",feature1Description:"feature1_description",feature2Icon:"feature2_icon",feature2Title:"feature2_title",feature2Description:"feature2_description",feature3Icon:"feature3_icon",feature3Title:"feature3_title",feature3Description:"feature3_description"};
-async function loadSettings(){clear("settingsMessage");let {data,error}=await db.from("shop_settings").select("*").eq("id",1).maybeSingle();if(error)return msg("settingsMessage",error.message,true);settingsCache=data||{};for(let [id,col] of Object.entries(basicFields))$(id).value=data?.[col]??"";let content=data?.site_content&&typeof data.site_content==="object"?data.site_content:{};const contentDefaults={primary_color:"#5b2038",secondary_color:"#8b5266",accent_color:"#c9aa78",hero_tag:"اختيارات تناسب أهدافك",feature1_icon:"💊",feature1_title:"اختيارات متنوعة",feature1_description:"منتجات من فئات وماركات مختلفة",feature2_icon:"🏋️",feature2_title:"اختار احتياجاتك بسهولة",feature2_description:"تصفح المنتجات وأضفها للسلة",feature3_icon:"📦",feature3_title:"توصيل لحد باب البيت",feature3_description:"اعرف مناطق ورسوم التوصيل قبل تأكيد الطلب"};for(let [id,key] of Object.entries(contentFields))$(id).value=content[key]??contentDefaults[key]??"";syncColor("primary");syncColor("secondary");syncColor("accent");preview("logoUrl","logoPreview");preview("heroImageUrl","heroPreview");preview("aboutImageUrl","aboutPreview")}
-function validColor(v){return /^#[0-9a-fA-F]{6}$/.test(v)}
-function syncColor(which,fromPicker=false){let cap=which[0].toUpperCase()+which.slice(1),picker=$(which+"Picker"),field=$(which+"Color");if(fromPicker)field.value=picker.value;else{let v=field.value.trim();picker.value=validColor(v)?v:"#102d3d"}}
-["primary","secondary","accent"].forEach(k=>{$(k+"Picker").addEventListener("input",()=>syncColor(k,true));$(k+"Color").addEventListener("input",()=>syncColor(k))});
-function preview(input,img){let v=$(input).value.trim();$(img).src=v;$(img).style.display=v?"block":"none"}
-[["logoUrl","logoPreview"],["heroImageUrl","heroPreview"],["aboutImageUrl","aboutPreview"]].forEach(([a,b])=>$(a).addEventListener("input",()=>preview(a,b)));
-$("saveSettings").onclick=saveSettings;
-async function saveSettings(){let button=$("saveSettings");button.disabled=true;clear("settingsMessage");try{
-let uploads=[["logoFile","logoUrl","logo_url"],["heroImageFile","heroImageUrl","hero_image_url"],["aboutImageFile","aboutImageUrl","about_image_url"]];
-for(let [fileId,urlId] of uploads){let f=$(fileId).files[0];if(f){$(urlId).value=await upload(f);$(fileId).value="";}}
-for(let k of ["primaryColor","secondaryColor","accentColor"]){if($(k).value.trim()&&!validColor($(k).value.trim()))throw new Error("اكتب كود لون صحيح مثل #173f52");}
-let siteContent={...(settingsCache.site_content||{})};
-for(let [id,key] of Object.entries(contentFields))siteContent[key]=$(id).value.trim();
-let record={id:1,updated_at:new Date().toISOString(),site_content:siteContent};
-for(let [id,col] of Object.entries(basicFields))record[col]=$(id).value.trim();
-record.logo_url=siteContent.logo_url||null;
-if(!record.store_name||!record.whatsapp_phone)throw new Error("اسم المحل ورقم واتساب مطلوبان.");
-let {data:savedSettings,error}=await db.from("shop_settings").upsert({...settingsCache,...record},{onConflict:"id"}).select("id,site_content").single();if(error)throw error;if(!savedSettings)throw new Error("Supabase لم يؤكد حفظ الإعدادات.");settingsCache={...settingsCache,...record,site_content:savedSettings.site_content??siteContent};preview("logoUrl","logoPreview");preview("heroImageUrl","heroPreview");preview("aboutImageUrl","aboutPreview");msg("settingsMessage","تم حفظ إعدادات الموقع بنجاح ✅ افتح المتجر وحدّث الصفحة لرؤية التغييرات.");
-}catch(e){msg("settingsMessage","تعذر الحفظ: "+e.message,true)}finally{button.disabled=false}}
-async function loadProducts(){let box=$("productsList");box.textContent="جاري تحميل المنتجات...";let {data,error}=await db.from("products").select("*").order("created_at",{ascending:false});if(error){box.textContent=error.message;return}if(!data?.length){box.innerHTML='<div class="muted">لا توجد منتجات.</div>';return}box.innerHTML=data.map(p=>`<div class="row"><div class="row-left">${p.image_url?`<img class="thumb" src="${esc(p.image_url)}" alt="صورة ${esc(p.name)}" onerror="this.style.display='none'">`:""}<div class="row-info"><b>${esc(p.name)}</b><p class="muted">${esc(p.category||"")}</p><p>${money(p.price)} / ${esc(p.unit||"")}</p><p>المخزون: ${Number(p.stock||0).toLocaleString("en-US",{maximumFractionDigits:2})} ${esc(p.unit||"")}</p><span class="badge">${p.is_active!==false&&p.active!==false?"نشط":"غير نشط"}</span></div></div><div class="actions"><button class="small" onclick="editProduct('${esc(p.id)}')">تعديل</button><button class="small danger" onclick="deleteProduct('${esc(p.id)}')">حذف</button></div></div>`).join("")}
-$("productForm").onsubmit=saveProduct;
-async function saveProduct(e){
-e.preventDefault();
-const id=$("productId").value,price=Number($("price").value),stock=Number($("stock").value);
-if(!Number.isFinite(price)||price<0||!Number.isFinite(stock)||stock<0)return msg("productMessage","راجع السعر والمخزون.",true);
-const b=$("saveProduct");b.disabled=true;b.textContent="جاري الحفظ...";
-try{
-  const selectedFile=$("image").files[0];
-  const imageUrl=await upload(selectedFile);
-  const active=$("active").checked;
-  const product={name:$("name").value.trim(),category:$("category").value.trim(),price,stock,unit:$("unit").value.trim()||"كجم",description:$("description").value.trim(),active,is_active:active};
-  // عند تعديل منتج من غير اختيار صورة جديدة، نترك image_url كما هو ولا نمسحه.
-  if(imageUrl)product.image_url=imageUrl;
-  const query=id?db.from("products").update(product).eq("id",id):db.from("products").insert(product);
-  const {data,error}=await query.select("id,image_url").single();
-  if(error){
-    const detail=error.message||String(error);
-    if(/image_url|column.*does not exist/i.test(detail))throw new Error("عمود image_url غير موجود في جدول products في Supabase.");
-    if(/row-level security|permission|403/i.test(detail))throw new Error("Supabase رفض حفظ المنتج. راجع صلاحيات INSERT/UPDATE لجدول products.");
-    throw new Error("تم التعامل مع الصورة، لكن حفظ بيانات المنتج فشل: "+detail);
+
+function formatQty(value){
+  return Number(value).toLocaleString("en-US",{maximumFractionDigits:2});
+}
+
+function showStockMessage(id,message){
+  const el = document.querySelector(`[data-stock-message="${id}"]`);
+  if(el) el.textContent = message;
+}
+
+function waLink(message=""){
+  return "https://wa.me/" + SHOP.phone +
+    (message ? "?text=" + encodeURIComponent(message) : "");
+}
+
+/* التحقق من رابط الصورة */
+function safeImageUrl(url,fallback){
+  if(!url) return fallback;
+
+  try{
+    const parsed = new URL(url);
+    if(parsed.protocol === "https:" || parsed.protocol === "http:"){
+      return parsed.href;
+    }
+  }catch(error){}
+
+  return fallback;
+}
+
+/* تطبيق ألوان الهوية */
+function applyCustomizationColors(data){
+  const root = document.documentElement;
+
+  const primary = data.primary_color || DEFAULT_CUSTOMIZATION.primary_color;
+  const secondary = data.secondary_color || DEFAULT_CUSTOMIZATION.secondary_color;
+  const accent = data.accent_color || DEFAULT_CUSTOMIZATION.accent_color;
+
+  // ربط ألوان لوحة الأدمن بمتغيرات تصميم البرجاندي الفعلية.
+  root.style.setProperty("--wine",primary);
+  root.style.setProperty("--wine-deep",secondary);
+  root.style.setProperty("--wine-soft",secondary);
+  root.style.setProperty("--champagne",accent);
+  root.style.setProperty("--red",accent);
+  root.style.setProperty("--navy",primary);
+  root.style.setProperty("--navy2",secondary);
+
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+  if(themeColor) themeColor.content = primary;
+}
+
+/* تطبيق الشعار */
+function applyShopLogo(url){
+  const logo = $("#shopLogo");
+
+  if(url){
+    logo.innerHTML = `<img src="${escapeHTML(url)}" alt="شعار المحل" onerror="this.parentElement.textContent='💪'">`;
+  }else{
+    logo.textContent = "💪";
   }
-  if(!data?.id)throw new Error("Supabase لم يؤكد حفظ المنتج.");
-  if(imageUrl && data.image_url!==imageUrl)throw new Error("المنتج اتحفظ لكن رابط الصورة لم يُحفظ في image_url. راجع صلاحيات/بنية جدول products.");
-  resetProduct();
-  msg("productMessage",imageUrl?"تم حفظ المنتج والصورة بنجاح ✅":"تم حفظ المنتج بنجاح ✅");
-  await loadProducts();
-}catch(error){msg("productMessage",error.message||"حصل خطأ غير معروف أثناء حفظ المنتج.",true)}
-finally{b.disabled=false;b.textContent="حفظ المنتج"}
 }
-async function editProduct(id){
-const {data,error}=await db.from("products").select("*").eq("id",id).single();
-if(error)return msg("productMessage",error.message,true);
-$("productId").value=data.id;$("name").value=data.name||"";$("category").value=data.category||"";$("price").value=data.price??0;$("unit").value=data.unit||"كجم";$("stock").value=data.stock??0;$("description").value=data.description||"";$("active").checked=data.is_active!==false&&data.active!==false;
-showProductImage(data.image_url||"");
-$("image").value="";
-$("products").scrollIntoView({behavior:"smooth"});
+
+/* تطبيق نصوص وصور الواجهة */
+function applyCustomization(data){
+  const custom = {
+    ...DEFAULT_CUSTOMIZATION,
+    ...data
+  };
+
+  applyCustomizationColors(custom);
+
+  for(let i=1;i<=3;i++){
+    // نستخدم ?? بدل || حتى نسمح بمسح الإيموجي أو النص عمدًا.
+    const iconElement=$("#feature"+i+"Icon");
+    const iconValue=custom["feature"+i+"_icon"] ?? DEFAULT_CUSTOMIZATION["feature"+i+"_icon"];
+    iconElement.textContent=iconValue;
+    iconElement.style.display=String(iconValue).trim()?"":"none";
+    $("#feature"+i+"Title").textContent = custom["feature"+i+"_title"] ?? DEFAULT_CUSTOMIZATION["feature"+i+"_title"];
+    $("#feature"+i+"Description").textContent = custom["feature"+i+"_description"] ?? DEFAULT_CUSTOMIZATION["feature"+i+"_description"];
+  }
+
+  $("#heroBadge").textContent =
+    custom.hero_badge ?? DEFAULT_CUSTOMIZATION.hero_badge;
+
+  const heroTag = document.querySelector(".hero-tag");
+  if(heroTag) heroTag.textContent = custom.hero_tag ?? DEFAULT_CUSTOMIZATION.hero_tag;
+
+  $("#heroTitle").innerHTML =
+    custom.hero_title ?? DEFAULT_CUSTOMIZATION.hero_title;
+
+  $("#heroDescription").textContent =
+    custom.hero_description ?? DEFAULT_CUSTOMIZATION.hero_description;
+
+  $("#heroButtonText").textContent =
+    custom.hero_button_text ?? DEFAULT_CUSTOMIZATION.hero_button_text;
+
+  $("#heroImage").src = safeImageUrl(
+    custom.hero_image_url,
+    DEFAULT_CUSTOMIZATION.hero_image_url
+  );
+
+  $("#aboutBadge").textContent =
+    "عن " + SHOP.name;
+
+  $("#aboutTitle").textContent =
+    custom.about_title ?? DEFAULT_CUSTOMIZATION.about_title;
+
+  $("#aboutDescription").textContent =
+    custom.about_description ?? DEFAULT_CUSTOMIZATION.about_description;
+
+  $("#aboutImage").src = safeImageUrl(
+    custom.about_image_url,
+    DEFAULT_CUSTOMIZATION.about_image_url
+  );
+
+  $("#contactTitle").textContent =
+    custom.contact_title ?? DEFAULT_CUSTOMIZATION.contact_title;
+
+  $("#contactDescription").textContent =
+    custom.contact_description ?? DEFAULT_CUSTOMIZATION.contact_description;
+
+  const textBindings = [
+    ["#products .section-head span","products_eyebrow"],
+    ["#products .section-head h2","products_title"],
+    ["#products .section-head p","products_description"],
+    ["#aboutBadge","about_badge"],
+    ["#about .btn","about_button_text"],
+    ["#footerText","footer_text"],
+    ["#developerKicker","developer_kicker"],
+    ["#developerName","developer_name"],
+    ["#developerRole","developer_role"],
+    ["#developerCopyright","developer_copyright"]
+  ];
+  for(const [selector,key] of textBindings){
+    const element=$(selector);
+    if(element) element.textContent=custom[key] ?? DEFAULT_CUSTOMIZATION[key] ?? "";
+  }
+  const footerStoreName=$("#footerStoreName");
+  if(footerStoreName) footerStoreName.textContent=SHOP.name;
+  const year=$("#year");
+  if(year) year.textContent="";
+
 }
-async function deleteProduct(id){if(!confirm("حذف المنتج نهائيًا؟"))return;let {error}=await db.from("products").delete().eq("id",id);if(error)return msg("productMessage",error.message,true);loadProducts()}
-function showProductImage(url){const img=$("productImagePreview");if(!img)return;img.onload=()=>img.style.display="block";img.onerror=()=>{img.style.display="none"};if(url){img.src=url;img.style.display="block"}else{img.removeAttribute("src");img.style.display="none"}}
-$("image").addEventListener("change",()=>{const file=$("image").files[0];if(!file){const id=$("productId").value;if(id)db.from("products").select("image_url").eq("id",id).single().then(({data})=>showProductImage(data?.image_url||""));else showProductImage("");return}if(!file.type.startsWith("image/")){msg("productMessage","الملف المختار مش صورة.",true);$("image").value="";return}showProductImage(URL.createObjectURL(file))});
-function resetProduct(){$("productForm").reset();$("productId").value="";$("active").checked=true;$("stock").value=0;$("unit").value="كجم";showProductImage("")}
-$("cancelProduct").onclick=resetProduct;
-async function loadDelivery(){let {data,error}=await db.from("delivery_areas").select("*").order("governorate").order("area");if(error){$("deliveryList").textContent=error.message;return}let q=$("deliverySearch").value.trim().toLowerCase();let list=(data||[]).filter(x=>(x.governorate+" "+x.area).toLowerCase().includes(q));$("deliveryList").innerHTML=list.map(x=>`<div class="row"><div><b>${esc(x.governorate)}</b><p>${esc(x.area)} — ${money(x.delivery_fee)}</p><span class="badge">${x.is_active?"متاحة":"متوقفة"}</span></div><div class="actions"><button class="small" onclick="editDelivery(${x.id})">تعديل</button><button class="small secondary" onclick="toggleDelivery(${x.id},${!x.is_active})">${x.is_active?"إيقاف":"تفعيل"}</button><button class="small danger" onclick="deleteDelivery(${x.id})">حذف</button></div></div>`).join("")||'<p class="muted">لا توجد مناطق مطابقة.</p>'}
-$("deliveryForm").onsubmit=async e=>{e.preventDefault();let id=$("deliveryId").value,record={governorate:$("governorate").value.trim(),area:$("area").value.trim(),delivery_fee:Number($("fee").value),is_active:$("deliveryActive").checked};try{let r=id?await db.from("delivery_areas").update(record).eq("id",id).select("id"):await db.from("delivery_areas").insert(record).select("id");if(r.error)throw r.error;if(!r.data?.length)throw Error("لم يتم الحفظ، راجع صلاحيات الأدمن.");resetDelivery();msg("deliveryMessage","تم الحفظ بنجاح.");loadDelivery()}catch(e){msg("deliveryMessage",e.message,true)}};
-function editDelivery(id){db.from("delivery_areas").select("*").eq("id",id).single().then(({data,error})=>{if(error)return msg("deliveryMessage",error.message,true);$("deliveryId").value=data.id;$("governorate").value=data.governorate;$("area").value=data.area;$("fee").value=data.delivery_fee;$("deliveryActive").checked=data.is_active;$("saveDelivery").textContent="حفظ التعديل"})}
-async function toggleDelivery(id,v){let {error}=await db.from("delivery_areas").update({is_active:v}).eq("id",id);if(error)msg("deliveryMessage",error.message,true);loadDelivery()}
-async function deleteDelivery(id){if(!confirm("حذف منطقة التوصيل؟"))return;let {error}=await db.from("delivery_areas").delete().eq("id",id);if(error)msg("deliveryMessage",error.message,true);loadDelivery()}
-function resetDelivery(){$("deliveryForm").reset();$("deliveryId").value="";$("deliveryActive").checked=true;$("saveDelivery").textContent="إضافة المنطقة"}
-$("cancelDelivery").onclick=resetDelivery;$("deliverySearch").oninput=()=>{clearTimeout(timer);timer=setTimeout(loadDelivery,250)};
-const statusLabels={new:"طلب جديد",confirmed:"تم التأكيد",cancelled:"ملغي"};
-document.querySelector(".tabs").onclick=e=>{let b=e.target.closest("[data-tab]");if(!b)return;tab=b.dataset.tab;page=1;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("active",x===b));loadOrders()};
-$("orderSearch").oninput=()=>{clearTimeout(timer);timer=setTimeout(()=>{page=1;loadOrders()},350)};$("refreshOrders").onclick=()=>loadOrders();$("prevOrders").onclick=()=>{if(page>1){page--;loadOrders()}};$("nextOrders").onclick=()=>{page++;loadOrders()};
-async function loadOrders(){let q=db.from("orders").select("*",{count:"exact"}).order("created_at",{ascending:false});if(tab==="new")q=q.in("status",["new","pending"]);let s=$("orderSearch").value.trim().replace(/[,%()]/g,"");if(s){let c=[`customer_name.ilike.%${s}%`,`phone.ilike.%${s}%`,`customer_phone.ilike.%${s}%`];if(/^\d+$/.test(s))c.push(`id.eq.${s}`);q=q.or(c.join(","))}let {data,error,count}=await q.range((page-1)*perPage,page*perPage-1);if(error){$("ordersList").textContent=error.message;return}let pages=Math.max(1,Math.ceil((count||0)/perPage));if(page>pages){page=pages;return loadOrders()}$("ordersCount").textContent="عدد الطلبات: "+(count||0);$("ordersPageInfo").textContent=`صفحة ${page} من ${pages}`;$("prevOrders").disabled=page<=1;$("nextOrders").disabled=page>=pages;$("ordersList").innerHTML=data?.length?data.map(renderOrder).join(""):'<p class="muted">لا توجد طلبات في هذا القسم.</p>';let all=[],start=0;while(true){let r=await db.from("orders").select("status,total").range(start,start+499);if(r.error)break;all.push(...(r.data||[]));if((r.data||[]).length<500)break;start+=500}let confirmed=all.filter(x=>x.status==="confirmed");$("summaryCount").textContent=all.length;$("summaryTotal").textContent=money(confirmed.reduce((a,x)=>a+Number(x.total||0),0))}
-function renderOrder(o){let id=String(o.id),open=expanded.has(id),items=Array.isArray(o.items)?o.items:[],status=o.status||"";let options=Object.entries(statusLabels).map(([k,v])=>`<option value="${k}" ${status===k?"selected":""}>${v}</option>`).join("");let legacy=!statusLabels[status]?`<option value="${esc(status)}" selected disabled>حالة قديمة: ${esc(status)}</option>`:"";return `<article class="order"><div class="order-top"><div><b>طلب #${esc(id)} — ${esc(o.customer_name||"بدون اسم")}</b><p>${esc(o.phone||o.customer_phone||"")} · ${o.created_at?new Date(o.created_at).toLocaleString("ar-EG"):""}</p><span class="badge">${esc(statusLabels[status]||"حالة قديمة: "+status)}</span><h3>${money(o.total)}</h3></div><button class="secondary" onclick="toggleOrder('${id}')">${open?"إخفاء التفاصيل":"عرض التفاصيل"}</button></div>${open?`<div class="details"><div class="info-grid">${[["الهاتف",o.phone||o.customer_phone],["المحافظة",o.governorate],["المنطقة",o.area],["العنوان",o.address],["ملاحظات",o.notes],["قيمة المنتجات",money(o.subtotal)],["التوصيل",money(o.delivery_fee)],["الإجمالي",money(o.total)]].map(([a,b])=>`<div class="info"><b>${a}</b>${esc(b||"—")}</div>`).join("")}</div><h3>المنتجات</h3><table class="items"><thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr></thead><tbody>${items.map(i=>`<tr><td>${esc(i.name||i.product_name||"منتج")}</td><td>${esc(i.quantity??i.qty??1)} ${esc(i.unit||"")}</td><td>${money(i.price)}</td><td>${money(i.line_total??i.total??Number(i.quantity??i.qty??1)*Number(i.price||0))}</td></tr>`).join("")}</tbody></table><label>حالة الطلب</label><select id="status-${id}" data-old="${esc(status)}" onchange="changeStatus('${id}')">${legacy}${options}</select><button class="danger small" onclick="deleteOrder('${id}')">حذف الطلب</button></div>`:""}</article>`}
-function toggleOrder(id){expanded.has(id)?expanded.delete(id):expanded.add(id);loadOrders()}
-async function changeStatus(id){let el=$("status-"+id),v=el.value;if(!statusLabels[v])return;let {data,error}=await db.from("orders").update({status:v}).eq("id",id).select("id");if(error||!data?.length){msg("ordersMessage",error?.message||"لم يتم تحديث الحالة",true);el.value=el.dataset.old;return}msg("ordersMessage","تم تحديث حالة الطلب بنجاح.");loadOrders()}
-async function deleteOrder(id){if(!confirm("حذف الطلب نهائيًا؟"))return;let {data,error}=await db.from("orders").delete().eq("id",id).select("id");if(error||!data?.length)return msg("ordersMessage",error?.message||"لم يتم الحذف",true);expanded.delete(id);msg("ordersMessage","تم حذف الطلب.");loadOrders()}
-checkAdmin();
-</script></body></html>
+
+/* تحميل إعدادات المحل الأساسية وتخصيص الواجهة */
+async function loadShopSettings(){
+  let {data,error} = await db.from("shop_settings")
+    .select("*")
+    .eq("id",1)
+    .maybeSingle();
+
+  if(error){
+    console.error("Shop settings error:",error);
+    applyCustomization(DEFAULT_CUSTOMIZATION);
+    return;
+  }
+
+  if(!data){
+    applyCustomization(DEFAULT_CUSTOMIZATION);
+    return;
+  }
+
+  /* بيانات المحل الأساسية */
+  SHOP.name = data.store_name || SHOP.name;
+
+  if(data.whatsapp_phone){
+    SHOP.phone = data.whatsapp_phone.replace(/\D/g,"");
+
+    SHOP.phoneShow = SHOP.phone.startsWith("20")
+      ? "0" + SHOP.phone.substring(2)
+      : SHOP.phone;
+  }
+
+  SHOP.address = data.address || SHOP.address;
+  SHOP.hours = data.working_hours || SHOP.hours;
+  SHOP.delivery = data.delivery_description || SHOP.delivery;
+  SHOP.mapUrl = data.map_url || "";
+
+  /* اسم المحل */
+  document.title = SHOP.name + " | مكملات غذائية ورياضية";
+
+  document.querySelector('meta[property="og:title"]').content = SHOP.name;
+
+  document.querySelector('meta[property="og:description"]').content =
+    data.hero_description || "مكملات غذائية ورياضية - اطلب بسهولة عبر واتساب";
+
+  $("#brandName").textContent = SHOP.name;
+
+  /* بيانات التواصل */
+  $("#shopAddress").textContent = SHOP.address;
+  $("#shopHours").textContent = SHOP.hours;
+  $("#shopPhone").textContent = SHOP.phoneShow;
+  $("#shopDelivery").textContent = SHOP.delivery;
+
+  /* الخريطة */
+  const mapLink = $("#mapLink");
+
+  try{
+    const mapUrl = new URL(SHOP.mapUrl);
+
+    if(mapUrl.protocol === "https:" || mapUrl.protocol === "http:"){
+      mapLink.href = mapUrl.href;
+      mapLink.classList.add("visible");
+    }else{
+      mapLink.classList.remove("visible");
+    }
+  }catch{
+    mapLink.classList.remove("visible");
+  }
+
+  /* روابط التواصل */
+  $("#topWhatsApp").href = waLink();
+  $("#heroWhatsApp").href = waLink();
+  $("#callShop").href = "tel:+" + SHOP.phone;
+  $("#contactWhatsApp").href = waLink();
+
+  /* تخصيص واجهة المتجر: المحتوى المخصص محفوظ داخل site_content */
+  applyShopLogo(data.logo_url || "");
+  const savedContent = data.site_content && typeof data.site_content === "object"
+    ? data.site_content
+    : {};
+  applyCustomization(savedContent);
+}
+
+/* البيانات الافتراضية قبل اكتمال التحميل */
+$("#topWhatsApp").href = waLink();
+$("#heroWhatsApp").href = waLink();
+$("#callShop").href = "tel:+" + SHOP.phone;
+$("#contactWhatsApp").href = waLink();
+
+$("#shopAddress").textContent = SHOP.address;
+$("#shopHours").textContent = SHOP.hours;
+$("#shopPhone").textContent = SHOP.phoneShow;
+$("#shopDelivery").textContent = SHOP.delivery;
+
+$("#year").textContent = new Date().getFullYear();
+
+applyCustomization(DEFAULT_CUSTOMIZATION);
+
+/* تحميل المنتجات مع المخزون */
+async function loadProducts(){
+  $("#productGrid").innerHTML =
+    '<div class="empty">جاري تحميل المنتجات...</div>';
+
+  const {data,error} = await db.from("products")
+    .select("id,name,category,price,unit,image_url,description,is_active,stock")
+    .eq("is_active",true)
+    .order("id");
+
+  if(error){
+    console.error("Products error:",error);
+    $("#productGrid").innerHTML =
+      '<div class="empty">حصلت مشكلة في تحميل المنتجات. حاول مرة أخرى.</div>';
+    return;
+  }
+
+  PRODUCTS = data || [];
+
+  PRODUCTS.forEach(p=>{
+    const id = String(p.id);
+
+    if((cart[id] || 0) > getStock(p)){
+      cart[id] = getStock(p);
+    }
+  });
+
+  renderCategories();
+  renderProducts();
+  updateCart();
+}
+
+/* تحميل مناطق التوصيل */
+async function loadDeliveryAreas(){
+  const container = $("#deliveryAreasList");
+
+  if(container) container.textContent = "جاري تحميل المناطق...";
+
+  const {data,error} = await db.from("delivery_areas")
+    .select("id, governorate, area, delivery_fee")
+    .eq("is_active",true)
+    .order("governorate")
+    .order("area");
+
+  if(error){
+    console.error("Delivery areas error:",error);
+    if(container) container.textContent = "حصلت مشكلة في تحميل مناطق التوصيل.";
+    return;
+  }
+
+  DELIVERY_AREAS = data || [];
+
+  const governorates = [
+    ...new Set(DELIVERY_AREAS.map(item=>item.governorate))
+  ];
+
+  $("#governorate").innerHTML =
+    '<option value="">اختر المحافظة</option>' +
+    governorates.map(name=>`
+      <option value="${escapeHTML(name)}">${escapeHTML(name)}</option>
+    `).join("");
+
+  renderDeliveryAreasList();
+}
+
+/* عرض مناطق التوصيل */
+function renderDeliveryAreasList(){
+  const container = $("#deliveryAreasList");
+  if(!container) return;
+
+  if(!DELIVERY_AREAS.length){
+    container.innerHTML =
+      '<p style="color:var(--muted)">لا توجد مناطق توصيل متاحة حاليًا.</p>';
+    return;
+  }
+
+  const grouped = {};
+
+  DELIVERY_AREAS.forEach(item=>{
+    if(!grouped[item.governorate]) grouped[item.governorate] = [];
+    grouped[item.governorate].push(item);
+  });
+
+  container.innerHTML = Object.entries(grouped).map(([governorate,areas])=>`
+    <div style="margin-bottom:14px">
+      <b style="color:var(--navy)">${escapeHTML(governorate)}</b>
+
+      <div style="display:grid;gap:7px;margin-top:7px">
+        ${areas.map(item=>`
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 11px;background:var(--bg);border:1px solid var(--line);border-radius:10px">
+            <span>${escapeHTML(item.area)}</span>
+            <b style="color:var(--green);white-space:nowrap;font-size:13px">
+              ${money(item.delivery_fee)}
+            </b>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `).join("");
+}
+
+/* حساب إجمالي المنتجات */
+function getCartTotal(){
+  return Object.keys(cart).reduce((sum,id)=>{
+    const p = PRODUCTS.find(x=>String(x.id) === id);
+    return sum + (p ? cart[id] * Number(p.price) : 0);
+  },0);
+}
+
+/* تحديث رسوم التوصيل والإجمالي */
+function updateDeliverySummary(){
+  const areaId = $("#deliveryArea").value;
+
+  const selected = DELIVERY_AREAS.find(
+    item=>String(item.id) === areaId
+  );
+
+  const fee = selected ? Number(selected.delivery_fee) : 0;
+
+  $("#deliveryFee").textContent = "رسوم التوصيل: " + money(fee);
+
+  $("#finalTotal").textContent =
+    "الإجمالي شامل التوصيل: " + money(getCartTotal() + fee);
+}
+
+/* اختيار المحافظة */
+$("#governorate").addEventListener("change",()=>{
+  const governorate = $("#governorate").value;
+
+  const areas = DELIVERY_AREAS.filter(
+    item=>item.governorate === governorate
+  );
+
+  $("#deliveryArea").innerHTML =
+    '<option value="">اختر المنطقة</option>' +
+    areas.map(item=>`
+      <option value="${item.id}">${escapeHTML(item.area)}</option>
+    `).join("");
+
+  $("#deliveryArea").disabled = areas.length === 0;
+
+  updateDeliverySummary();
+});
+
+$("#deliveryArea").addEventListener("change",updateDeliverySummary);
+
+/* عرض الأقسام */
+function renderCategories(){
+  const cats = [
+    "الكل",
+    ...new Set(PRODUCTS.map(p=>p.category).filter(Boolean))
+  ];
+
+  $("#categories").innerHTML = cats.map(c=>`
+    <button class="cat-btn ${c === active ? "active" : ""}" data-cat="${escapeHTML(c)}">
+      ${escapeHTML(c)}
+    </button>
+  `).join("");
+}
+
+/* تفاصيل المنتج والوصف التفصيلي */
+let detailsProductId = null;
+function closeProductDetails(){
+  $("#productDetailsModal").hidden = true;
+  $("#productDetailsModal").setAttribute("aria-hidden","true");
+  detailsProductId = null;
+}
+function openProductDetails(id){
+  const product = PRODUCTS.find(item=>String(item.id) === String(id));
+  if(!product) return;
+  detailsProductId = String(product.id);
+  const image = $("#detailsProductImage");
+  if(product.image_url){image.src=safeImageUrl(product.image_url,"");image.style.display="block";}
+  else{image.removeAttribute("src");image.style.display="none";}
+  image.alt = product.name || "صورة المنتج";
+  $("#detailsProductCategory").textContent = product.category || "";
+  $("#detailsProductName").textContent = product.name || "";
+  $("#detailsProductPrice").textContent = money(product.price) + " / " + (product.unit || "عبوة");
+  const description = String(product.description || "").trim();
+  const descriptionBox = $("#detailsProductDescription");
+  descriptionBox.textContent = description || "لا يوجد وصف تفصيلي لهذا المنتج حاليًا.";
+  descriptionBox.classList.toggle("empty",!description);
+  const addButton = $("#detailsAddToCart");
+  const stock = getStock(product);
+  addButton.disabled = stock <= 0 || (cart[detailsProductId] || 0) >= stock;
+  addButton.textContent = stock <= 0 ? "نفد المخزون" : ((cart[detailsProductId] || 0) >= stock ? "وصلت للحد المتاح" : "أضف للسلة");
+  $("#productDetailsModal").hidden = false;
+  $("#productDetailsModal").setAttribute("aria-hidden","false");
+}
+$("#productGrid").addEventListener("click",e=>{const trigger=e.target.closest("[data-open-product]");if(trigger)openProductDetails(trigger.dataset.openProduct);});
+$("#productGrid").addEventListener("keydown",e=>{if((e.key!=="Enter"&&e.key!==" ")||!e.target.matches("[data-open-product]"))return;e.preventDefault();openProductDetails(e.target.dataset.openProduct);});
+$("#closeProductDetails").addEventListener("click",closeProductDetails);
+$("#productDetailsModal").addEventListener("click",e=>{if(e.target.id==="productDetailsModal")closeProductDetails();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#productDetailsModal").hidden)closeProductDetails();});
+$("#detailsAddToCart").addEventListener("click",()=>{if(!detailsProductId)return;const product=PRODUCTS.find(item=>String(item.id)===detailsProductId);if(!product)return;const next=(cart[detailsProductId]||0)+1;if(next>getStock(product))return;cart[detailsProductId]=next;renderProducts();updateCart();closeProductDetails();});
+
+/* عرض المنتجات والمخزون */
+function renderProducts(){
+  const items = PRODUCTS.filter(
+    p=>active === "الكل" || p.category === active
+  );
+
+  $("#productGrid").innerHTML = items.map(p=>{
+    const id = String(p.id);
+    const stock = getStock(p);
+    const quantity = cart[id] || 0;
+    const unit = p.unit || "عبوة";
+    const outOfStock = stock <= 0;
+    const cannotIncrease = quantity + 1 > stock;
+
+    return `
+      <article class="product">
+        <div class="product-img product-clickable" data-open-product="${id}" role="button" tabindex="0" aria-label="عرض تفاصيل ${escapeHTML(p.name)}">
+          ${p.image_url ? `
+            <img
+              src="${escapeHTML(p.image_url)}"
+              alt="${escapeHTML(p.name)}"
+              loading="lazy"
+              onerror="this.remove();this.parentElement.classList.add('image-error')">
+          ` : ""}
+        </div>
+
+        <div class="product-body">
+          <span class="product-cat">${escapeHTML(p.category)}</span>
+          <h3 class="product-clickable" data-open-product="${id}" role="button" tabindex="0">${escapeHTML(p.name)}</h3>
+
+          <div class="price">
+            ${money(p.price)}
+            <small>/ ${escapeHTML(unit)}</small>
+          </div>
+
+          <div class="stock-info ${outOfStock ? "out" : ""}">
+            ${outOfStock
+              ? "نفد المخزون"
+              : "المتاح: " + formatQty(stock) + " " + escapeHTML(unit)}
+          </div>
+
+          <div class="product-controls">
+            <div class="qty">
+              <button data-change="-1" data-id="${id}"
+                ${quantity <= 0 ? "disabled" : ""}>−</button>
+
+              <input
+                class="qty-input"
+                type="number"
+                min="0"
+                max="${stock}"
+                step="1"
+                inputmode="decimal"
+                value="${quantity}"
+                data-quantity="${id}"
+                aria-label="الكمية المطلوبة">
+
+              <button data-change="1" data-id="${id}"
+                ${outOfStock || cannotIncrease ? "disabled" : ""}>+</button>
+            </div>
+
+            <button class="add" data-add="${id}"
+              ${outOfStock || cannotIncrease ? "disabled" : ""}>
+              أضف للسلة
+            </button>
+          </div>
+
+          <small class="stock-message" data-stock-message="${id}"></small>
+        </div>
+      </article>
+    `;
+  }).join("") || '<div class="empty">لا توجد منتجات في هذا القسم</div>';
+}
+
+/* تحديث السلة */
+function updateCart(){
+  const ids = Object.keys(cart).filter(id=>cart[id] > 0);
+
+  const count = ids.reduce((sum,id)=>sum + cart[id],0);
+  const total = getCartTotal();
+
+  $("#cartBar").classList.toggle("show",ids.length > 0);
+  $("#cartCount").textContent = formatQty(count) + " وحدة / عبوة";
+  $("#cartTotal").textContent = "الإجمالي التقريبي: " + money(total);
+}
+
+/* الضغط على الأقسام */
+$("#categories").addEventListener("click",e=>{
+  const button = e.target.closest("[data-cat]");
+  if(!button) return;
+
+  active = button.dataset.cat;
+
+  renderCategories();
+  renderProducts();
+});
+
+/* التحكم في أزرار الكمية والإضافة */
+$("#productGrid").addEventListener("click",e=>{
+  const add = e.target.closest("[data-add]");
+  const change = e.target.closest("[data-change]");
+
+  if(add){
+    const id = add.dataset.add;
+    const product = PRODUCTS.find(p=>String(p.id) === id);
+
+    if(!product) return;
+
+    const next = (cart[id] || 0) + 1;
+
+    if(next > getStock(product)){
+      showStockMessage(
+        id,
+        "الكمية غير متاحة، المتاح حاليًا " +
+        formatQty(getStock(product)) + " " + (product.unit || "عبوة")
+      );
+      return;
+    }
+
+    cart[id] = next;
+
+    renderProducts();
+    updateCart();
+  }
+
+  if(change){
+    const id = change.dataset.id;
+    const product = PRODUCTS.find(p=>String(p.id) === id);
+
+    if(!product) return;
+
+    const next = Math.max(
+      0,
+      (cart[id] || 0) + Number(change.dataset.change)
+    );
+
+    if(next > getStock(product)){
+      showStockMessage(
+        id,
+        "الكمية غير متاحة، المتاح حاليًا " +
+        formatQty(getStock(product)) + " " + (product.unit || "عبوة")
+      );
+      return;
+    }
+
+    cart[id] = next;
+
+    renderProducts();
+    updateCart();
+  }
+});
+
+/* إدخال الكمية يدويًا */
+$("#productGrid").addEventListener("change",e=>{
+  const input = e.target.closest("[data-quantity]");
+  if(!input) return;
+
+  const id = input.dataset.quantity;
+  const product = PRODUCTS.find(p=>String(p.id) === id);
+
+  if(!product) return;
+
+  const entered = Number(input.value);
+  const stock = getStock(product);
+  const oldQuantity = cart[id] || 0;
+
+  if(!Number.isFinite(entered) || entered < 0){
+    showStockMessage(id,"من فضلك اكتب كمية صحيحة.");
+    input.value = oldQuantity;
+    return;
+  }
+
+  if(entered > stock){
+    showStockMessage(
+      id,
+      "الكمية غير متاحة، المتاح حاليًا " +
+      formatQty(stock) + " " + (product.unit || "عبوة")
+    );
+
+    input.value = oldQuantity;
+    return;
+  }
+
+  if(entered > 0 && !Number.isInteger(entered)){
+    showStockMessage(id,"الكمية تُحدد بعدد العبوات الكاملة.");
+    input.value = oldQuantity;
+    return;
+  }
+
+  cart[id] = Math.round(entered);
+
+  renderProducts();
+  updateCart();
+});
+
+/* فتح نافذة بيانات التوصيل */
+$("#checkout").addEventListener("click",()=>{
+  if(!Object.keys(cart).some(id=>cart[id] > 0)) return;
+
+  $("#checkoutError").textContent = "";
+  $("#customerName").value = "";
+  $("#customerPhone").value = "";
+  $("#governorate").value = "";
+
+  $("#deliveryArea").innerHTML =
+    '<option value="">اختر المنطقة</option>';
+
+  $("#deliveryArea").disabled = true;
+
+  updateDeliverySummary();
+
+  $("#checkoutModal").hidden = false;
+});
+
+/* إغلاق النافذة */
+$("#closeCheckout").addEventListener("click",()=>{
+  $("#checkoutModal").hidden = true;
+});
+
+/* تأكيد الطلب وحفظه في Supabase ثم إرساله إلى واتساب */
+$("#confirmOrder").addEventListener("click",async()=>{
+  const button = $("#confirmOrder");
+
+  const name = $("#customerName").value.trim();
+  const phone = $("#customerPhone").value.trim();
+  const governorate = $("#governorate").value;
+  const areaId = $("#deliveryArea").value;
+
+  const selectedArea = DELIVERY_AREAS.find(
+    item=>String(item.id) === areaId
+  );
+
+  if(!name || !phone || !governorate || !selectedArea){
+    $("#checkoutError").textContent =
+      "من فضلك املأ جميع البيانات واختر منطقة التوصيل";
+    return;
+  }
+
+  const ids = Object.keys(cart).filter(id=>cart[id] > 0);
+
+  if(!ids.length){
+    $("#checkoutError").textContent = "السلة فارغة";
+    return;
+  }
+
+  for(const id of ids){
+    const product = PRODUCTS.find(p=>String(p.id) === id);
+
+    if(!product){
+      $("#checkoutError").textContent =
+        "أحد المنتجات لم يعد متاحًا.";
+      return;
+    }
+
+    if(cart[id] > getStock(product)){
+      $("#checkoutError").textContent =
+        "الكمية المطلوبة من " + product.name +
+        " غير متاحة. المتاح حاليًا " +
+        formatQty(getStock(product)) + " " + (product.unit || "عبوة");
+
+      return;
+    }
+  }
+
+  const orderItems = ids.map(id=>{
+    const product = PRODUCTS.find(p=>String(p.id) === id);
+    if(!product) return null;
+
+    return {
+      product_id:product.id,
+      name:product.name,
+      quantity:cart[id],
+      unit:product.unit || "عبوة",
+      price:Number(product.price),
+      line_total:cart[id] * Number(product.price)
+    };
+  }).filter(Boolean);
+
+  const subtotal = getCartTotal();
+  const fee = Number(selectedArea.delivery_fee);
+  const finalTotal = subtotal + fee;
+
+  const lines = orderItems.map(item=>
+    `• ${item.name}: ${item.quantity} ${item.unit} = ${money(item.line_total)}`
+  ).join("\n");
+
+  const msg =
+`أهلاً، عايز أطلب من ${SHOP.name}:
+
+${lines}
+
+اسم العميل: ${name}
+رقم الهاتف: ${phone}
+المحافظة: ${governorate}
+المنطقة: ${selectedArea.area}
+
+إجمالي المنتجات: ${money(subtotal)}
+رسوم التوصيل: ${money(fee)}
+الإجمالي شامل التوصيل: ${money(finalTotal)}`;
+
+  $("#checkoutError").textContent = "";
+
+  button.disabled = true;
+  button.textContent = "جاري تسجيل الطلب...";
+
+  const whatsappWindow = window.open("about:blank","_blank");
+
+  try{
+    const {error} = await db.from("orders").insert({
+      customer_name:name,
+      phone:phone,
+      address:governorate + " - " + selectedArea.area,
+      customer_phone:phone,
+      governorate:governorate,
+      area:selectedArea.area,
+      items:orderItems,
+      subtotal:subtotal,
+      delivery_fee:fee,
+      total:finalTotal,
+      status:"new"
+    });
+
+    if(error) throw error;
+
+    const link = waLink(msg);
+
+    if(whatsappWindow){
+      whatsappWindow.location.href = link;
+    }else{
+      window.location.href = link;
+    }
+
+    $("#checkoutModal").hidden = true;
+
+    Object.keys(cart).forEach(id=>delete cart[id]);
+
+    await loadProducts();
+
+  }catch(error){
+    console.error("Order save error:",error);
+
+    if(whatsappWindow) whatsappWindow.close();
+
+    const errorText = String(error?.message || error?.details || "");
+
+    if(
+      errorText.includes("غير متاح") ||
+      errorText.includes("المخزون") ||
+      errorText.includes("الكمية المطلوبة")
+    ){
+      $("#checkoutError").textContent =
+        "عذرًا، الكمية المطلوبة غير متاحة حاليًا. حدّثنا المخزون، راجع الكمية وحاول مرة أخرى.";
+
+      await loadProducts();
+
+    }else{
+      $("#checkoutError").textContent =
+        "حصلت مشكلة في تسجيل الطلب. من فضلك حاول مرة تانية.";
+    }
+
+  }finally{
+    button.disabled = false;
+    button.textContent = "تأكيد الطلب على واتساب";
+  }
+});
+
+/* حركة ثلاثية الأبعاد خفيفة للصورة الرئيسية */
+(function enableHeroDepth(){
+  const visual = document.querySelector(".hero-visual");
+  if(!visual || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const reset = () => { visual.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)"; };
+  visual.addEventListener("pointermove", event=>{
+    if(event.pointerType === "touch") return;
+    const rect = visual.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - .5;
+    const y = (event.clientY - rect.top) / rect.height - .5;
+    visual.style.transform = `perspective(1000px) rotateX(${(-y*5).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg)`;
+  });
+  visual.addEventListener("pointerleave", reset);
+})();
+
+/* تشغيل المتجر والإعدادات */
+async function initStore(){
+  await loadShopSettings();
+
+  await Promise.all([
+    loadProducts(),
+    loadDeliveryAreas()
+  ]);
+}
+
+initStore();
+</script>
+</body>
+</html>
